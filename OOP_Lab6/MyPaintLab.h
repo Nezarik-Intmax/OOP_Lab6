@@ -43,6 +43,9 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ button6;
 
 	private:
 		/// <summary>
@@ -62,6 +65,9 @@ namespace OOPLab6 {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -118,11 +124,44 @@ namespace OOPLab6 {
 			this->button3->UseVisualStyleBackColor = false;
 			this->button3->Click += gcnew System::EventHandler(this, &MyPaintLab::color_Click);
 			// 
+			// button4
+			// 
+			this->button4->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->button4->Location = System::Drawing::Point(367, 14);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(20, 20);
+			this->button4->TabIndex = 5;
+			this->button4->UseVisualStyleBackColor = false;
+			this->button4->Click += gcnew System::EventHandler(this, &MyPaintLab::color_Click);
+			// 
+			// button5
+			// 
+			this->button5->BackColor = System::Drawing::Color::Yellow;
+			this->button5->Location = System::Drawing::Point(393, 14);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(20, 20);
+			this->button5->TabIndex = 6;
+			this->button5->UseVisualStyleBackColor = false;
+			this->button5->Click += gcnew System::EventHandler(this, &MyPaintLab::color_Click);
+			// 
+			// button6
+			// 
+			this->button6->BackColor = System::Drawing::Color::Black;
+			this->button6->Location = System::Drawing::Point(315, 14);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(20, 20);
+			this->button6->TabIndex = 7;
+			this->button6->UseVisualStyleBackColor = false;
+			this->button6->Click += gcnew System::EventHandler(this, &MyPaintLab::color_Click);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button6);
+			this->Controls->Add(this->button5);
+			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->label1);

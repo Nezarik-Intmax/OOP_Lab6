@@ -13,10 +13,11 @@ public:
 		this->y = y;
 		this->select = true;
 	}
-	CCircle(int x, int y, int r, Color color):radius(r), color(color){
+	CCircle(int x, int y, int r, Color color):radius(r){
 		this->x = x;
 		this->y = y;
 		this->select = true;
+		this->color = color;
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
