@@ -13,11 +13,16 @@ public:
 		this->y = y;
 		this->select = true;
 	}
+	CCircle(int x, int y, int r, Color color):radius(r), color(color){
+		this->x = x;
+		this->y = y;
+		this->select = true;
+	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
-		Brush^ brsh = Brushes::Black;
+		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		if(select)
 			brsh = Brushes::Red;
-		e->Graphics->FillEllipse(brsh, x-(radius/2), y-(radius/2), radius, radius);
+		e->Graphics->FillEllipse(brsh, x - (radius / 2), y - (radius / 2), radius, radius);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		if((this->x - (radius / 2) <= x)&&(this->x + (radius / 2) >= x))

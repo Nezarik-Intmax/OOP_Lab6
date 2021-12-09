@@ -10,12 +10,12 @@ private:
 	bool collision = false;
 	bool paint;
 	int type;
-	int color;
+	System::Drawing::Color color;
 public:
-	PaintHandler():type(0),color(0){}
+	PaintHandler():type(0),color(System::Drawing::Color::Black){}
 	~PaintHandler(){}
 	void setType(int i){ type  = i;}
-	void setColor(int i){color = i;}
+	void setColor(System::Drawing::Color i){color = i;}
 	void setMultiSelect(bool i){ multiSelect = i; }
 	void setCollision(bool i){ collision = i; }
 	bool checkCollisions(int xC, int yC){

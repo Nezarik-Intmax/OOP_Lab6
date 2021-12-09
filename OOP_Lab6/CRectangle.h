@@ -1,7 +1,7 @@
 #pragma once
 #include "PaintFigureBase.h"
 
-class CRectangle: public PaintFigureBase{
+ref class CRectangle: public PaintFigureBase{
 private:
 	int width, height;
 	bool invW, invH;
@@ -13,7 +13,7 @@ public:
 		this->select = true;
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
-		Brush^ brsh = Brushes::Black;
+		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		if(select)
 			brsh = Brushes::Red;
 		if(invH && invW)
