@@ -1,7 +1,7 @@
 #include "MyPaintLab.h"
 #include "MyContainer.h"
-#include "CCircle.h"
 #include "PaintHandler.h"
+#include "CCircle.h"
 
 using namespace System;
 using namespace System::Windows::Forms;

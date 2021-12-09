@@ -130,6 +130,7 @@
     <ClInclude Include="MyPaintLab.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="PaintFigureBase.h" />
     <ClInclude Include="PaintHandler.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
-
+#include "MyContainer.h"
+#include "PaintHandler.h"
+#include "CCircle.h"
 namespace OOPLab6 {
 
 	using namespace System;
@@ -37,6 +39,7 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	protected:
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Label^ label1;
 
 	private:
 		/// <summary>
@@ -53,6 +56,7 @@ namespace OOPLab6 {
 		{
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -64,6 +68,8 @@ namespace OOPLab6 {
 			this->pictureBox1->Size = System::Drawing::Size(883, 522);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
+			this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyPaintLab::pictureBox1_Paint);
+			this->pictureBox1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseClick);
 			// 
 			// button1
 			// 
@@ -73,26 +79,85 @@ namespace OOPLab6 {
 			this->button1->TabIndex = 1;
 			this->button1->Text = L"Круг";
 			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyPaintLab::button1_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(261, 22);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(35, 13);
+			this->label1->TabIndex = 2;
+			this->label1->Text = L"label1";
 			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->pictureBox1);
+			this->KeyPreview = true;
 			this->Name = L"MyPaintLab";
 			this->Text = L"MyPaintLab";
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyPaintLab::MyForm_KeyDown);
+			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &MyPaintLab::MyForm_KeyUp);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e){
-
+	MyContainer<PaintFigureBase> circles;
+	bool ctrl = false;
+	bool collision = false;
+	private: System::Void pictureBox1_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
+		collision = false;
+		PaintFigureBase* a;
+		for(circles.first(); !circles.eol(); circles.next()){
+			if(!ctrl)
+				circles.getObject().node->SetSelect(false);
+			if(circles.getObject().node->checkCollision(e->X, e->Y)){
+				collision = true;
+				a = circles.getObject().node;
+				if(ctrl){
+					circles.getObject().node->SetSelect();
+				}
+			}
+		}
+		if(!collision){
+			a = new CCircle(e->X, e->Y, 100);
+			circles.add(a);
+		} else if(!ctrl){
+			a->SetSelect();
+		}
+		pictureBox1->Invalidate();
+	}
+	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
+		for(circles.first(); !circles.eol(); circles.next())
+			circles.getObject().node->draw(e);
+	}
+	private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
+		if(e->KeyValue == 46){
+			for(circles.first(); !circles.eol();){
+				if(circles.getObject().node->GetSelect()){
+					circles.popCurrent();
+				} else{
+					circles.next();
+				}
+			}
+			pictureBox1->Invalidate();
+		} else if(e->Control){
+			ctrl = true;
+			label1->Text = "ctrlDOWN";
+		}
+	}
+	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
+		if(e->KeyData == System::Windows::Forms::Keys::ControlKey){
+			ctrl = false;
+			label1->Text = "ctrlUP";
+		}
 	}
 	};
-	//private:
 
 }

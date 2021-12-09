@@ -8,4 +8,3 @@ public:
 	void setType(int i){ type  = i;}
 	void setColor(int i){color = i;}
 };
-class Paint
