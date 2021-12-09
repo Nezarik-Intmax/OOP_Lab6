@@ -1,6 +1,7 @@
 #include "MyPaintLab.h"
 #include "MyContainer.h"
 #include "PaintHandler.h"
+#include "PaintFigureBase.h"
 #include "CCircle.h"
 
 using namespace System;

@@ -116,64 +116,32 @@ namespace OOPLab6 {
 	private: System::Void pictureBox1_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 	}
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
-		for(circles.first(); !circles.eol(); circles.next())
-			circles.getObject().node->draw(e);
+		pHnd.paintAll(e);
 	}
 	private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
 		if(e->KeyValue == 46){
-			for(circles.first(); !circles.eol();){
-				if(circles.getObject().node->getSelect()){
-					circles.popCurrent();
-				} else{
-					circles.next();
-				}
-			}
+			pHnd.deleteSelected();
 			pictureBox1->Invalidate();
 		} else if(e->Control){
-			ctrl = true;
+			pHnd.setMultiSelect(true);
 			label1->Text = "ctrlDOWN";
 		}
 	}
 	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
 		if(e->KeyData == System::Windows::Forms::Keys::ControlKey){
-			ctrl = false;
+			pHnd.setMultiSelect(false);
 			label1->Text = "ctrlUP";
 		}
 	}
 	private: System::Void pictureBox1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
-		collision = false;
-		PaintFigureBase* a;
-		for(circles.first(); !circles.eol(); circles.next()){
-			if(!ctrl)
-				circles.getObject().node->setSelect(false);
-			if(circles.getObject().node->checkCollision(e->X, e->Y)){
-				collision = true;
-				a = circles.getObject().node;
-				if(ctrl){
-					circles.getObject().node->setSelect();
-				}
-			}
-		}
-		if(!collision){
-			a = new CCircle(e->X, e->Y, 100);
-			circles.add(a);
-			paint = true;
-		} else if(!ctrl){
-			a->setSelect();
-		}
+		pHnd.paintClick(e->X, e->Y);
 	}
 	private: System::Void pictureBox1_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
-		if((!collision)&&(paint)){
-			circles.last();
-			int x = circles.getObject().node->getX() - e->X;
-			int y = circles.getObject().node->getY() - e->Y;
-			int r = sqrt(x*x+y*y);
-			dynamic_cast<CCircle*>(circles.getObject().node)->setRadius(r);
-		}
+		pHnd.proccessDraw(e->X, e->Y);
 		pictureBox1->Invalidate();
 	}
 	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
-		paint = false;
+		pHnd.endDraw();
 		pictureBox1->Invalidate();
 	}
 };

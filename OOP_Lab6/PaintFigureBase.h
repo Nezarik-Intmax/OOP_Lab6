@@ -19,4 +19,5 @@ public:
 	virtual int getX(){ return this->x; }
 	virtual int getY(){ return this->y; }
 	virtual bool getSelect(){ return this->select; }
+	virtual void setSize(int xC, int yC){}
 };
