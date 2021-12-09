@@ -1,4 +1,5 @@
 #pragma once
+#include <math.h>
 #include "MyContainer.h"
 #include "PaintHandler.h"
 #include "CCircle.h"
@@ -70,6 +71,9 @@ namespace OOPLab6 {
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyPaintLab::pictureBox1_Paint);
 			this->pictureBox1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseClick);
+			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseDown);
+			this->pictureBox1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseMove);
+			this->pictureBox1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseUp);
 			// 
 			// button1
 			// 
@@ -111,27 +115,8 @@ namespace OOPLab6 {
 	MyContainer<PaintFigureBase> circles;
 	bool ctrl = false;
 	bool collision = false;
+	bool paint = false;
 	private: System::Void pictureBox1_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
-		collision = false;
-		PaintFigureBase* a;
-		for(circles.first(); !circles.eol(); circles.next()){
-			if(!ctrl)
-				circles.getObject().node->SetSelect(false);
-			if(circles.getObject().node->checkCollision(e->X, e->Y)){
-				collision = true;
-				a = circles.getObject().node;
-				if(ctrl){
-					circles.getObject().node->SetSelect();
-				}
-			}
-		}
-		if(!collision){
-			a = new CCircle(e->X, e->Y, 100);
-			circles.add(a);
-		} else if(!ctrl){
-			a->SetSelect();
-		}
-		pictureBox1->Invalidate();
 	}
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
 		for(circles.first(); !circles.eol(); circles.next())
@@ -140,7 +125,7 @@ namespace OOPLab6 {
 	private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
 		if(e->KeyValue == 46){
 			for(circles.first(); !circles.eol();){
-				if(circles.getObject().node->GetSelect()){
+				if(circles.getObject().node->getSelect()){
 					circles.popCurrent();
 				} else{
 					circles.next();
@@ -158,6 +143,42 @@ namespace OOPLab6 {
 			label1->Text = "ctrlUP";
 		}
 	}
-	};
+	private: System::Void pictureBox1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
+		collision = false;
+		PaintFigureBase* a;
+		for(circles.first(); !circles.eol(); circles.next()){
+			if(!ctrl)
+				circles.getObject().node->setSelect(false);
+			if(circles.getObject().node->checkCollision(e->X, e->Y)){
+				collision = true;
+				a = circles.getObject().node;
+				if(ctrl){
+					circles.getObject().node->setSelect();
+				}
+			}
+		}
+		if(!collision){
+			a = new CCircle(e->X, e->Y, 100);
+			circles.add(a);
+			paint = true;
+		} else if(!ctrl){
+			a->setSelect();
+		}
+	}
+	private: System::Void pictureBox1_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
+		if((!collision)&&(paint)){
+			circles.last();
+			int x = circles.getObject().node->getX() - e->X;
+			int y = circles.getObject().node->getY() - e->Y;
+			int r = sqrt(x*x+y*y);
+			dynamic_cast<CCircle*>(circles.getObject().node)->setRadius(r);
+		}
+		pictureBox1->Invalidate();
+	}
+	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
+		paint = false;
+		pictureBox1->Invalidate();
+	}
+};
 
 }

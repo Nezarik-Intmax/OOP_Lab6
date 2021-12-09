@@ -32,7 +32,7 @@ public:
 		else
 			return false;
 	}
-	void SetRadius(int r){ this->radius = r;}
-	int GetRadius(){ return this->radius;}
+	void setRadius(int r){ this->radius = r;}
+	int getRadius(){ return this->radius;}
 };
 #endif

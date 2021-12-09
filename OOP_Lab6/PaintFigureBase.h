@@ -13,10 +13,10 @@ public:
 			return true;
 		else return false;
 	};
-	virtual void SetX(int x){ this->x = x; }
-	virtual void SetY(int y){ this->y = y; }
-	virtual void SetSelect(bool s = true){ this->select = s; }
-	virtual int GetX(){ return this->x; }
-	virtual int GetY(){ return this->y; }
-	virtual bool GetSelect(){ return this->select; }
+	virtual void setX(int x){ this->x = x; }
+	virtual void setY(int y){ this->y = y; }
+	virtual void setSelect(bool s = true){ this->select = s; }
+	virtual int getX(){ return this->x; }
+	virtual int getY(){ return this->y; }
+	virtual bool getSelect(){ return this->select; }
 };

@@ -191,6 +191,8 @@ MyContainerNode<T> MyContainer<T>::getObject(){
         return *current;
     else if(head != nullptr)
         return *head;
+    else
+        return nullptr;
 }
 template <class T>
 MyContainerNode<T> MyContainer<T>::getObject(int a){
