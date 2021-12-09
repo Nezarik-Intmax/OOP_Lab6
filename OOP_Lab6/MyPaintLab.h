@@ -108,9 +108,7 @@ namespace OOPLab6 {
 
 		}
 #pragma endregion
-	MyContainer<PaintFigureBase> circles;
-	bool ctrl = false;
-	bool collision = false;
+	PaintHandler pHnd;
 	private: System::Void pictureBox1_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 		collision = false;
 		PaintFigureBase* a;
@@ -121,7 +119,7 @@ namespace OOPLab6 {
 				collision = true;
 				a = circles.getObject().node;
 				if(ctrl){
-					circles.getObject().node->SetSelect();
+					a->SetSelect();
 				}
 			}
 		}
