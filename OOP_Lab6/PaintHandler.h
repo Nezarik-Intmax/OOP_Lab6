@@ -1,5 +1,9 @@
 #pragma once
-class PaintHandler{
+ref class PaintHandler{
+private:
+	MyContainer<PaintFigureBase> figures;
+	bool multiSelect = false;
+	bool collision = false;
 public:
 	int type;
 	int color;

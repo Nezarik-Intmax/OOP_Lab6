@@ -112,10 +112,7 @@ namespace OOPLab6 {
 
 		}
 #pragma endregion
-	MyContainer<PaintFigureBase> circles;
-	bool ctrl = false;
-	bool collision = false;
-	bool paint = false;
+	PaintHandler pHnd;
 	private: System::Void pictureBox1_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 	}
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
