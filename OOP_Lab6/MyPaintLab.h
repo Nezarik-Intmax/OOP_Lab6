@@ -41,6 +41,7 @@ namespace OOPLab6 {
 	protected:
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ button2;
 
 	private:
 		/// <summary>
@@ -58,6 +59,7 @@ namespace OOPLab6 {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -70,8 +72,8 @@ namespace OOPLab6 {
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyPaintLab::pictureBox1_Paint);
-			this->pictureBox1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseClick);
 			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseDown);
+			this->pictureBox1->MouseLeave += gcnew System::EventHandler(this, &MyPaintLab::pictureBox1_MouseLeave);
 			this->pictureBox1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseMove);
 			this->pictureBox1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyPaintLab::pictureBox1_MouseUp);
 			// 
@@ -83,6 +85,7 @@ namespace OOPLab6 {
 			this->button1->TabIndex = 1;
 			this->button1->Text = L"Круг";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyPaintLab::button1_Click);
 			// 
 			// label1
 			// 
@@ -93,11 +96,22 @@ namespace OOPLab6 {
 			this->label1->TabIndex = 2;
 			this->label1->Text = L"label1";
 			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(95, 13);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(105, 23);
+			this->button2->TabIndex = 3;
+			this->button2->Text = L"Прямоугольник";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyPaintLab::button2_Click);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->pictureBox1);
@@ -113,8 +127,6 @@ namespace OOPLab6 {
 		}
 #pragma endregion
 	PaintHandler pHnd;
-	private: System::Void pictureBox1_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
-	}
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
 		pHnd.paintAll(e);
 	}
@@ -143,6 +155,15 @@ namespace OOPLab6 {
 	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 		pHnd.endDraw();
 		pictureBox1->Invalidate();
+	}
+	private: System::Void pictureBox1_MouseLeave(System::Object^ sender, System::EventArgs^ e){
+		pHnd.endDraw();
+	}
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setType(0);
+	}
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setType(1);
 	}
 };
 

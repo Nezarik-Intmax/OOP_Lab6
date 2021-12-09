@@ -1,6 +1,8 @@
 #pragma once
 #include "PaintFigureBase.h"
 #include "CCircle.h"
+#include "CRectangle.h"
+enum figType{CIRCLE, RECTANGLE};
 ref class PaintHandler{
 private:
 	MyContainer<PaintFigureBase> figures;
@@ -53,7 +55,16 @@ public:
 		}
 	}
 	void startDraw(int xC, int yC){
-		figures.add(new CCircle(xC, yC, 100));
+		switch(this->type){
+		case CIRCLE:
+			figures.add(new CCircle(xC, yC, 100));
+			break;
+		case RECTANGLE:
+			figures.add(new CRectangle(xC, yC, 10, 10));
+			break;
+		default:
+			figures.add(new CCircle(xC, yC, 100));
+		}
 		paint = true;
 	}
 	void proccessDraw(int xC, int yC){

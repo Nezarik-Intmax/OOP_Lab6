@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCircle.h" />
+    <ClInclude Include="CRectangle.h" />
     <ClInclude Include="MyContainer.h" />
     <ClInclude Include="MyPaintLab.h">
       <FileType>CppForm</FileType>
