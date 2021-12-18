@@ -46,6 +46,7 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
+	private: System::Windows::Forms::Button^ button7;
 
 	private:
 		/// <summary>
@@ -68,6 +69,7 @@ namespace OOPLab6 {
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -98,7 +100,7 @@ namespace OOPLab6 {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(12, 39);
+			this->label1->Location = System::Drawing::Point(12, 43);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(35, 13);
 			this->label1->TabIndex = 2;
@@ -117,7 +119,7 @@ namespace OOPLab6 {
 			// button3
 			// 
 			this->button3->BackColor = System::Drawing::SystemColors::Desktop;
-			this->button3->Location = System::Drawing::Point(341, 14);
+			this->button3->Location = System::Drawing::Point(79, 39);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(20, 20);
 			this->button3->TabIndex = 4;
@@ -127,7 +129,7 @@ namespace OOPLab6 {
 			// button4
 			// 
 			this->button4->BackColor = System::Drawing::SystemColors::HotTrack;
-			this->button4->Location = System::Drawing::Point(367, 14);
+			this->button4->Location = System::Drawing::Point(105, 39);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(20, 20);
 			this->button4->TabIndex = 5;
@@ -137,7 +139,7 @@ namespace OOPLab6 {
 			// button5
 			// 
 			this->button5->BackColor = System::Drawing::Color::Yellow;
-			this->button5->Location = System::Drawing::Point(393, 14);
+			this->button5->Location = System::Drawing::Point(131, 39);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(20, 20);
 			this->button5->TabIndex = 6;
@@ -147,18 +149,29 @@ namespace OOPLab6 {
 			// button6
 			// 
 			this->button6->BackColor = System::Drawing::Color::Black;
-			this->button6->Location = System::Drawing::Point(315, 14);
+			this->button6->Location = System::Drawing::Point(53, 39);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(20, 20);
 			this->button6->TabIndex = 7;
 			this->button6->UseVisualStyleBackColor = false;
 			this->button6->Click += gcnew System::EventHandler(this, &MyPaintLab::color_Click);
 			// 
+			// button7
+			// 
+			this->button7->Location = System::Drawing::Point(204, 13);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(72, 23);
+			this->button7->TabIndex = 8;
+			this->button7->Text = L"έλλθορ";
+			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyPaintLab::button7_Click);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button4);
@@ -197,6 +210,9 @@ namespace OOPLab6 {
 			label1->Text = "ctrlUP";
 		}
 	}
+	private: System::Void color_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setColor(((System::Windows::Forms::Button^)sender)->BackColor);
+	}
 	private: System::Void pictureBox1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 		pHnd.paintClick(e->X, e->Y);
 	}
@@ -214,12 +230,11 @@ namespace OOPLab6 {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setType(0);
 	}
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e){
+	private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setType(1);
 	}
-	private: System::Void color_Click(System::Object^ sender, System::EventArgs^ e){
-
-		pHnd.setColor(((System::Windows::Forms::Button^)sender)->BackColor);
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setType(2);
 	}
 };
 

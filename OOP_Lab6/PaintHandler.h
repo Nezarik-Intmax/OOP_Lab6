@@ -2,7 +2,7 @@
 #include "PaintFigureBase.h"
 #include "CCircle.h"
 #include "CRectangle.h"
-enum figType{CIRCLE, RECTANGLE};
+enum figType{CIRCLE, ELLIPSE, RECTANGLE};
 ref class PaintHandler{
 private:
 	MyContainer<PaintFigureBase> figures;
@@ -58,6 +58,9 @@ public:
 		switch(this->type){
 		case CIRCLE:
 			figures.add(new CCircle(xC, yC, 100, color));
+			break;
+		case ELLIPSE:
+			figures.add(new CEllipse(xC, yC, 10, 10, color));
 			break;
 		case RECTANGLE:
 			figures.add(new CRectangle(xC, yC, 10, 10, color));
