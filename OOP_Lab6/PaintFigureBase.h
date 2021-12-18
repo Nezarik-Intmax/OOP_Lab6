@@ -1,10 +1,11 @@
 #pragma once
+#include <msclr/gcroot.h>
 using namespace System::Drawing;
-ref class PaintFigureBase{
+using namespace msclr;
+class PaintFigureBase{
 protected:
 	int x, y;
-	Color color;
-	Brush brsh;
+	gcroot<Color> color;
 	bool select;
 public:
 	PaintFigureBase():x(0), y(0), select(true){
@@ -23,7 +24,7 @@ public:
 	};
 	virtual void setX(int x){ this->x = x; }
 	virtual void setY(int y){ this->y = y; }
-	virtual void setSelect(bool s){ this->select = s; }
+	virtual void setSelect(bool s = true){ this->select = s; }
 	virtual int getX(){ return this->x; }
 	virtual int getY(){ return this->y; }
 	virtual bool getSelect(){ return this->select; }

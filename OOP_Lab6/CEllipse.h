@@ -1,18 +1,17 @@
 #pragma once
 #include "PaintFigureBase.h"
-
-class CRectangle: public PaintFigureBase{
+class CEllipse: public PaintFigureBase{
 private:
 	int width, height;
 	bool invW, invH;
 public:
-	CRectangle():width(0),height(0){}
-	CRectangle(int x, int y, int w, int h):width(w), height(h){
+	CEllipse():width(0), height(0){}
+	CEllipse(int x, int y, int w, int h):width(w), height(h){
 		this->x = x;
 		this->y = y;
 		this->select = true;
 	}
-	CRectangle(int x, int y, int w, int h, Color color):width(w), height(h){
+	CEllipse(int x, int y, int w, int h, Color color):width(w), height(h){
 		this->x = x;
 		this->y = y;
 		this->select = true;
@@ -23,13 +22,13 @@ public:
 		if(select)
 			brsh = Brushes::Red;
 		if(invH && invW)
-			e->Graphics->FillRectangle(brsh, x-width, y-height, width, height);
+			e->Graphics->FillEllipse(brsh, x - width, y - height, width, height);
 		else if(invH)
-			e->Graphics->FillRectangle(brsh, x, y - height, width, height);
+			e->Graphics->FillEllipse(brsh, x, y - height, width, height);
 		else if(invW)
-			e->Graphics->FillRectangle(brsh, x - width, y, width, height);
+			e->Graphics->FillEllipse(brsh, x - width, y, width, height);
 		else
-			e->Graphics->FillRectangle(brsh, x, y, width, height);
+			e->Graphics->FillEllipse(brsh, x, y, width, height);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		int l, r, t, b;
@@ -48,13 +47,11 @@ public:
 	virtual void setSize(int xC, int yC) override{
 		int width = getX() - xC;
 		int height = getY() - yC;
-		invW = (width>0);
-		invH = (height>0);
+		invW = (width > 0);
+		invH = (height > 0);
 		setWidth(abs(width));
 		setHeight(abs(height));
 	}
 	void setWidth(int r){ this->width = r; }
 	void setHeight(int r){ this->height = r; }
-	int getWidth(){  return this->width; }
-	int getHeight(){ return this->height; }
 };

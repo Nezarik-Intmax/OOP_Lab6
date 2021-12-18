@@ -57,13 +57,13 @@ public:
 	void startDraw(int xC, int yC){
 		switch(this->type){
 		case CIRCLE:
-			figures.add(new CCircle(xC, yC, 100));
+			figures.add(new CCircle(xC, yC, 100, color));
 			break;
 		case RECTANGLE:
-			figures.add(new CRectangle(xC, yC, 10, 10));
+			figures.add(new CRectangle(xC, yC, 10, 10, color));
 			break;
 		default:
-			figures.add(new CCircle(xC, yC, 100));
+			figures.add(new CCircle(xC, yC, 100, color));
 		}
 		paint = true;
 	}
