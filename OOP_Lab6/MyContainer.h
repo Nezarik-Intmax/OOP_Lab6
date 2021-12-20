@@ -54,8 +54,8 @@ public:
     bool eol();
     void next();
     void prev();
-    MyContainerNode<T> getObject();
-    MyContainerNode<T> getObject(int a);
+    T* getObject();
+    T* getObject(int a);
     int length();
 };
 template <class T>
@@ -186,22 +186,22 @@ void MyContainer<T>::prev(){
         current = current->prev;
 }
 template <class T>
-MyContainerNode<T> MyContainer<T>::getObject(){
+T* MyContainer<T>::getObject(){
     if(current != nullptr)
-        return *current;
+        return current->node;
     else if(head != nullptr)
-        return *head;
+        return head->node;
     else
         return nullptr;
 }
 template <class T>
-MyContainerNode<T> MyContainer<T>::getObject(int a){
+T* MyContainer<T>::getObject(int a){
     if(head != nullptr){
         MyContainerNode<T>* newNode = head;
         for(int i = 0; i < a; i++){
             newNode = newNode->next;
         }
-        return *newNode;
+        return newNode->node;
     }
 }
 template <class T>

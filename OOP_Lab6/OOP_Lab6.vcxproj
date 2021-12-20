@@ -126,7 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCircle.h" />
+    <ClInclude Include="CEllipse.h" />
     <ClInclude Include="CRectangle.h" />
+    <ClInclude Include="CTriangle.h" />
     <ClInclude Include="MyContainer.h" />
     <ClInclude Include="MyPaintLab.h">
       <FileType>CppForm</FileType>
@@ -135,9 +137,7 @@
     <ClInclude Include="PaintHandler.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyPaintLab.resx">
-      <DependentUpon>MyPaintLab.h</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="MyPaintLab.resx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,13 +2,15 @@
 #include "PaintFigureBase.h"
 #include "CCircle.h"
 #include "CRectangle.h"
-enum figType{CIRCLE, ELLIPSE, RECTANGLE};
+#include "CEllipse.h"
+#include "CTriangle.h"
+enum figType{CIRCLE, ELLIPSE, RECTANGLE, TRIANGLE};
 ref class PaintHandler{
 private:
 	MyContainer<PaintFigureBase> figures;
 	bool multiSelect = false;
 	bool collision = false;
-	bool paint;
+	bool paint = false;
 	int type;
 	System::Drawing::Color color;
 public:
@@ -21,27 +23,28 @@ public:
 	bool checkCollisions(int xC, int yC){
 		bool col = false;
 		for(figures.first(); !figures.eol(); figures.next()){
-			if(figures.getObject().node->checkCollision(xC, yC)){
-				col = true;
-				figures.getObject().node->setSelect();
-				if(!multiSelect){
-					if(figures.getObject().prev != nullptr)
-						figures.getObject().prev->node->setSelect(false);
+			if(figures.getObject()->checkCollision(xC, yC)){
+				figures.getObject()->setSelect();
+				if(!multiSelect && col){
+					figures.prev();
+					figures.getObject()->setSelect(false);
+					figures.next();
 				}
+				col = true;
 			}else{
 				if(!multiSelect)
-					figures.getObject().node->setSelect(false);
+					figures.getObject()->setSelect(false);
 			}
 		}
 		return col;
 	}
 	void paintAll(System::Windows::Forms::PaintEventArgs^ e){
 		for(figures.first(); !figures.eol(); figures.next())
-			figures.getObject().node->draw(e);
+			figures.getObject()->draw(e);
 	}
 	void deleteSelected(){
 		for(figures.first(); !figures.eol();){
-			if(figures.getObject().node->getSelect()){
+			if(figures.getObject()->getSelect()){
 				figures.popCurrent();
 			} else{
 				figures.next();
@@ -55,28 +58,39 @@ public:
 		}
 	}
 	void startDraw(int xC, int yC){
-		switch(this->type){
-		case CIRCLE:
-			figures.add(new CCircle(xC, yC, 100, color));
-			break;
-		case ELLIPSE:
-			figures.add(new CEllipse(xC, yC, 10, 10, color));
-			break;
-		case RECTANGLE:
-			figures.add(new CRectangle(xC, yC, 10, 10, color));
-			break;
-		default:
-			figures.add(new CCircle(xC, yC, 100, color));
+		if(!paint){
+			switch(this->type){
+			case CIRCLE:
+				figures.add(new CCircle(xC, yC, 100, color));
+				break;
+			case ELLIPSE:
+				figures.add(new CEllipse(xC, yC, 10, 10, color));
+				break;
+			case RECTANGLE:
+				figures.add(new CRectangle(xC, yC, 10, 10, color));
+				break;
+			case TRIANGLE:
+				figures.add(new CTriangle(xC, yC, color));
+				break;
+			default:
+				figures.add(new CCircle(xC, yC, 100, color));
+			}
+			paint = true;
 		}
-		paint = true;
 	}
 	void proccessDraw(int xC, int yC){
 		if((!collision) && (paint)){
 			figures.last();
-			figures.getObject().node->setSize(xC, yC);
+			figures.getObject()->setSize(xC, yC);
 		}
 	}
 	void endDraw(){
-		paint = false;
+		figures.last();
+		if(figures.length() > 0){
+			paint = !figures.getObject()->getCompleted();
+		}
+		if(paint){
+			figures.getObject()->update();
+		}
 	}
 };

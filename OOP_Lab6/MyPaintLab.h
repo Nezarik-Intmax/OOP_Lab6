@@ -47,6 +47,7 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
 	private: System::Windows::Forms::Button^ button7;
+	private: System::Windows::Forms::Button^ button8;
 
 	private:
 		/// <summary>
@@ -70,6 +71,7 @@ namespace OOPLab6 {
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->button8 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -108,7 +110,7 @@ namespace OOPLab6 {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(95, 13);
+			this->button2->Location = System::Drawing::Point(93, 13);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(105, 23);
 			this->button2->TabIndex = 3;
@@ -166,11 +168,22 @@ namespace OOPLab6 {
 			this->button7->UseVisualStyleBackColor = true;
 			this->button7->Click += gcnew System::EventHandler(this, &MyPaintLab::button7_Click);
 			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(282, 13);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(89, 23);
+			this->button8->TabIndex = 9;
+			this->button8->Text = L"Треугольник";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &MyPaintLab::button8_Click);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button8);
 			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->button5);
@@ -201,13 +214,11 @@ namespace OOPLab6 {
 			pictureBox1->Invalidate();
 		} else if(e->Control){
 			pHnd.setMultiSelect(true);
-			label1->Text = "ctrlDOWN";
 		}
 	}
 	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
 		if(e->KeyData == System::Windows::Forms::Keys::ControlKey){
 			pHnd.setMultiSelect(false);
-			label1->Text = "ctrlUP";
 		}
 	}
 	private: System::Void color_Click(System::Object^ sender, System::EventArgs^ e){
@@ -235,6 +246,9 @@ namespace OOPLab6 {
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setType(2);
+	}
+	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setType(3);
 	}
 };
 

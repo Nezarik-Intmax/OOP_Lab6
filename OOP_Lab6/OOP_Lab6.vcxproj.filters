@@ -20,23 +20,34 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyPaintLab.h">
+    <ClInclude Include="CEllipse.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CCircle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="CRectangle.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CTriangle.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="MyContainer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PaintHandler.h">
+    <ClInclude Include="MyPaintLab.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="PaintFigureBase.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CRectangle.h">
+    <ClInclude Include="PaintHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyPaintLab.resx">
+      <Filter>Файлы заголовков</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

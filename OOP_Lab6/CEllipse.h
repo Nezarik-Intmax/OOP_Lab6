@@ -1,5 +1,6 @@
 #pragma once
 #include "PaintFigureBase.h"
+#include <math.h>
 class CEllipse: public PaintFigureBase{
 private:
 	int width, height;
@@ -30,6 +31,18 @@ public:
 		else
 			e->Graphics->FillEllipse(brsh, x, y, width, height);
 	}
+	/*virtual bool checkCollision(int x, int y) override{
+		int w = (this->x - x) * (this->x - x);
+		int h = (this->y - y) * (this->y - y);
+		int l, r, t, b;
+		l = !invW ? 1 : -1;
+		t = !invH ? 1 : -1;
+		bool inCircle = (((x - this->x)^2 / (width/2)^2) + ((y - this->y)^2 / (height/2)^2)) <= 1;
+		if(inCircle)
+			return true;
+		else
+			return false;
+	}*/
 	virtual bool checkCollision(int x, int y) override{
 		int l, r, t, b;
 		l = !invW ? this->x : this->x - width;

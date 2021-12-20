@@ -5,15 +5,15 @@
 
 class CCircle : public PaintFigureBase{
 private:
-	int radius;
+	int diameter;
 public:
-	CCircle():radius(0){}
-	CCircle(int x, int y, int r):radius(r){
+	CCircle():diameter(0){}
+	CCircle(int x, int y, int r):diameter(r){
 		this->x = x;
 		this->y = y;
 		this->select = true;
 	}
-	CCircle(int x, int y, int r, Color color):radius(r){
+	CCircle(int x, int y, int r, Color color):diameter(r){
 		this->x = x;
 		this->y = y;
 		this->select = true;
@@ -23,14 +23,14 @@ public:
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		if(select)
 			brsh = Brushes::Red;
-		e->Graphics->FillEllipse(brsh, x - (radius / 2), y - (radius / 2), radius, radius);
+		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);
 	}
 	virtual bool checkCollision(int x, int y) override{
-		if((this->x - (radius / 2) <= x)&&(this->x + (radius / 2) >= x))
-			if((this->y - (radius / 2) <= y)&&(this->y + (radius / 2) >= y))
-				return true;
-			else
-				return false;
+		int w = (this->x - x) * (this->x - x);
+		int h = (this->y - y) * (this->y - y);
+		bool inCircle = (diameter / 2 * diameter / 2) >= (w + h);
+		if(inCircle)
+			return true;
 		else
 			return false;
 	}
@@ -38,9 +38,9 @@ public:
 		int width = getX() - xC;
 		int height = getY() - yC;
 		int r = sqrt(width * width + height * height);
-		setRadius(r);
+		setDiameter(r);
 	}
-	void setRadius(int r){ this->radius = r;}
-	int getRadius(){ return this->radius;}
+	void setDiameter(int r){ this->diameter = r;}
+	int getDiameter(){ return this->diameter;}
 };
 #endif
