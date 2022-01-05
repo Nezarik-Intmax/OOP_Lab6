@@ -21,10 +21,14 @@ public:
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		if(select){
-			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x - (diameter / 2), y - (diameter / 2), diameter, diameter);
-		}
+		//if(select)
+		//	e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x - (diameter / 2), y - (diameter / 2), diameter, diameter);
 		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);
+		drawResize(e);
+	}
+	virtual void drawResize(System::Windows::Forms::PaintEventArgs^ e) override{
+		Brush^ brsh = gcnew System::Drawing::SolidBrush(Color::DarkGray);
+		e->Graphics->DrawRectangle(gcnew Pen(brsh, 5), x, y, diameter, diameter);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		int w = (this->x - x) * (this->x - x);

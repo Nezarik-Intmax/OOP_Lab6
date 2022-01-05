@@ -213,8 +213,8 @@ namespace OOPLab6 {
 		}
 #pragma endregion
 	PaintHandler pHnd;
-	Keys movDir;
-	//String movDir;
+	Keys inputCom;
+	//String inputCom;
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
 		pHnd.paintAll(e);
 	}
@@ -225,7 +225,7 @@ namespace OOPLab6 {
 		} else if(e->Control){
 			pHnd.setMultiSelect(true);
 		}
-		movDir = e->KeyCode;
+		inputCom = e->KeyCode;
 		moveTimer->Enabled = true;
 	}
 	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
@@ -265,11 +265,15 @@ namespace OOPLab6 {
 		pHnd.setType(3);
 	}
 	private: System::Void moveTimer_Tick(System::Object^ sender, System::EventArgs^ e){
-		switch(movDir){
+		switch(inputCom){
 		case Keys::W: pHnd.move(0, -3, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
 		case Keys::S: pHnd.move(0, 3, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
 		case Keys::D: pHnd.move(3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
 		case Keys::A: pHnd.move(-3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
+		case Keys::I: pHnd.resizeAll(0, -3, !pHnd.getMultiSelect()); break;
+		case Keys::K: pHnd.resizeAll(0, 3, !pHnd.getMultiSelect()); break;
+		case Keys::L: pHnd.resizeAll(3, 0, !pHnd.getMultiSelect()); break;
+		case Keys::J: pHnd.resizeAll(-3, 0, !pHnd.getMultiSelect()); break;
 		default:
 			break;
 		}

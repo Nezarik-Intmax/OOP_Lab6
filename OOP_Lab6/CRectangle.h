@@ -3,6 +3,7 @@
 
 class CRectangle: public PaintFigureBase{
 private:
+	int xOrigin, yOrigin, x2, y2;
 	int width, height;
 	bool invW, invH;
 public:
@@ -10,49 +11,70 @@ public:
 	CRectangle(int x, int y, int w, int h):width(w), height(h){
 		this->x = x;
 		this->y = y;
+		this->x2 = x;
+		this->y2 = y;
+		this->xOrigin = x;
+		this->yOrigin = y;
 		this->select = true;
 	}
 	CRectangle(int x, int y, int w, int h, Color color):width(w), height(h){
 		this->x = x;
 		this->y = y;
+		this->x2 = x;
+		this->y2 = y;
+		this->xOrigin = x;
+		this->yOrigin = y;
 		this->select = true;
 		this->color = color;
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		int lx = invW ? x-width : x;
-		int ly = invH ? y-height : y;
-		if(select)
-			e->Graphics->DrawRectangle(gcnew Pen(Brushes::Red, 10), lx, ly, width, height);
-		e->Graphics->FillRectangle(brsh, lx, ly, width, height);
+		/*if(select)
+			e->Graphics->DrawRectangle(gcnew Pen(Brushes::Red, 10), x, y, width, height);*/
+		e->Graphics->FillRectangle(brsh, x, y, width, height);
+		drawResize(e);
+	}
+	virtual void drawResize(System::Windows::Forms::PaintEventArgs^ e) override{
+		Brush^ brsh = gcnew System::Drawing::SolidBrush(Color::DarkGray);
+		e->Graphics->DrawRectangle(gcnew Pen(brsh, 5), x, y, width, height);
 	}
 	virtual bool checkCollision(int x, int y) override{
-		int l, r, t, b;
-		l = !invW ? this->x : this->x - width;
-		r = !invW ? this->x + width : this->x;
-		t = !invH ? this->y : this->y - height;
-		b = !invH ? this->y + height : this->y;
-		if((l <= x) && (r >= x))
-			if((t <= y) && (b >= y))
+		if((this->x <= x) && (this->x2 >= x))
+			if((this->y <= y) && (this->y2 >= y))
 				return true;
 		return false;
 	}
 	virtual void setSize(int xC, int yC) override{
-		int width = getX() - xC;
-		int height = getY() - yC;
-		invW = (width>0);
-		invH = (height>0);
-		setWidth(abs(width));
-		setHeight(abs(height));
+		if(xC < xOrigin) x = xC;
+		else x2 = xC;
+		if(yC < yOrigin) y = yC;
+		else y2 = yC;
+		setWidth(x2 - x);
+		setHeight(y2 - y);
+	}
+	virtual void resize(int xC, int yC, bool sign) override{
+		int s = sign ? 1 : -1;
+		if(xC < 0) x += xC * s;
+		else if (xC > 0) x2 += xC * s;
+		if(yC < 0) y += yC * s;
+		else if(yC > 0) y2 += yC * s;
+		setWidth(x2 - x);
+		setHeight(y2 - y);
 	}
 	void setWidth(int r){ this->width = r; }
 	void setHeight(int r){ this->height = r; }
 	int getWidth(){  return this->width; }
 	int getHeight(){ return this->height; }
 	virtual void move(int xC, int yC, int w, int h) override{
-		if((this->x + xC + (width / 2) < w) && (this->x + xC - (width / 2) > 0))
+		if((this->x2 + xC <= w) && (this->x + xC >= 0)){
 			this->x += xC;
-		if((this->y + yC + (height / 2) < h) && (this->y + yC - (height / 2) > 0))
+			this->x2 += xC;
+			this->xOrigin += xC;
+		}
+		if((this->y2 + yC <= h) && (this->y + yC >= 0)){
 			this->y += yC;
+			this->y2 += yC;
+			this->yOrigin += yC;
+		}
 	}
 };

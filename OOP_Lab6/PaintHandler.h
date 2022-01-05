@@ -26,6 +26,7 @@ public:
 		}
 	}
 	void setMultiSelect(bool i){ multiSelect = i; }
+	bool getMultiSelect(){ return multiSelect; }
 	void setCollision(bool i){ collision = i; }
 	bool checkCollisions(int xC, int yC){
 		bool col = false;
@@ -46,6 +47,11 @@ public:
 	void paintAll(System::Windows::Forms::PaintEventArgs^ e){
 		for(figures.first(); !figures.eol(); figures.next())
 			figures.getObject()->draw(e);
+	}
+	void resizeAll(int xC, int yC, bool sign){
+		for(figures.first(); !figures.eol(); figures.next())
+			if(figures.getObject()->getSelect())
+				figures.getObject()->resize(xC, yC, sign);
 	}
 	void deleteSelected(){
 		for(figures.first(); !figures.eol();){
