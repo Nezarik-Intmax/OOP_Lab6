@@ -15,7 +15,6 @@ public:
 	PaintFigureBase(int x, int y, Color color):x(x), y(y), select(true), color(color){}
 	virtual ~PaintFigureBase(){}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e){};
-	virtual void drawResize(System::Windows::Forms::PaintEventArgs^ e){};
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e, Color){};
 	virtual bool checkCollision(int x, int y){
 		if((this->x==y)&&(this->y==y))

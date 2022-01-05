@@ -21,14 +21,9 @@ public:
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		//if(select)
-		//	e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x - (diameter / 2), y - (diameter / 2), diameter, diameter);
+		if(select)
+			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x - (diameter / 2), y - (diameter / 2), diameter, diameter);
 		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);
-		drawResize(e);
-	}
-	virtual void drawResize(System::Windows::Forms::PaintEventArgs^ e) override{
-		Brush^ brsh = gcnew System::Drawing::SolidBrush(Color::DarkGray);
-		e->Graphics->DrawRectangle(gcnew Pen(brsh, 5), x, y, diameter, diameter);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		int w = (this->x - x) * (this->x - x);
@@ -44,6 +39,10 @@ public:
 		int height = getY() - yC;
 		int r = sqrt(width * width + height * height);
 		setDiameter(r);
+	}
+	virtual void resize(int xOffset, int yOffset, bool sign) override{
+		int s = sign ? 1 : -1;
+		setDiameter(getDiameter() + (abs(yOffset)*s) + (abs(xOffset)*s));
 	}
 	void setDiameter(int r){ this->diameter = r;}
 	int getDiameter(){ return this->diameter;}

@@ -3,57 +3,70 @@
 #include <math.h>
 class CEllipse: public PaintFigureBase{
 private:
+	int xOrigin, yOrigin, x2, y2;
 	int width, height;
-	bool invW, invH;
 public:
 	CEllipse():width(0), height(0){}
 	CEllipse(int x, int y, int w, int h):width(w), height(h){
 		this->x = x;
 		this->y = y;
+		this->x2 = x;
+		this->y2 = y;
+		this->xOrigin = x;
+		this->yOrigin = y;
 		this->select = true;
 	}
 	CEllipse(int x, int y, int w, int h, Color color):width(w), height(h){
 		this->x = x;
 		this->y = y;
+		this->x2 = x;
+		this->y2 = y;
+		this->xOrigin = x;
+		this->yOrigin = y;
 		this->select = true;
 		this->color = color;
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		int lx = invW ? x - width : x;
-		int ly = invH ? y - height : y;
 		if(select)
 			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x, y, width, height);
 		e->Graphics->FillEllipse(brsh, x, y, width, height);
 	}
 	virtual bool checkCollision(int x, int y) override{
-		int l, r, t, b;
-		l = !invW ? this->x : this->x - width;
-		r = !invW ? this->x + width : this->x;
-		t = !invH ? this->y : this->y - height;
-		b = !invH ? this->y + height : this->y;
-		if((l <= x) && (r >= x))
-			if((t <= y) && (b >= y))
+		if((this->x <= x) && (this->x2 >= x))
+			if((this->y <= y) && (this->y2 >= y))
 				return true;
-			else
-				return false;
-		else
-			return false;
+		return false;
 	}
 	virtual void setSize(int xC, int yC) override{
-		int width = getX() - xC;
-		int height = getY() - yC;
-		invW = (width > 0);
-		invH = (height > 0);
-		setWidth(abs(width));
-		setHeight(abs(height));
+		if(xC < xOrigin) x = xC;
+		else x2 = xC;
+		if(yC < yOrigin) y = yC;
+		else y2 = yC;
+		setWidth(x2 - x);
+		setHeight(y2 - y);
+	}
+	virtual void resize(int xOffset, int yOffset, bool sign) override{
+		int s = sign ? 1 : -1;
+		if(xOffset < 0) x += xOffset * s;
+		else if(xOffset > 0) x2 += xOffset * s;
+		if(yOffset < 0) y += yOffset * s;
+		else if(yOffset > 0) y2 += yOffset * s;
+		setWidth(x2 - x);
+		setHeight(y2 - y);
 	}
 	void setWidth(int r){ this->width = r; }
 	void setHeight(int r){ this->height = r; }
 	virtual void move(int xC, int yC, int w, int h) override{
-		if((this->x + xC + width < w) && (this->x + xC - width > 0))
+		if((this->x2 + xC <= w) && (this->x + xC >= 0)){
 			this->x += xC;
-		if((this->y + yC + height < h) && (this->y + yC - height > 0))
+			this->x2 += xC;
+			this->xOrigin += xC;
+		}
+		if((this->y2 + yC <= h) && (this->y + yC >= 0)){
 			this->y += yC;
+			this->y2 += yC;
+			this->yOrigin += yC;
+		}
 	}
 };

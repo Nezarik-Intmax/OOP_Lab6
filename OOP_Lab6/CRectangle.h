@@ -5,7 +5,6 @@ class CRectangle: public PaintFigureBase{
 private:
 	int xOrigin, yOrigin, x2, y2;
 	int width, height;
-	bool invW, invH;
 public:
 	CRectangle():width(0),height(0){}
 	CRectangle(int x, int y, int w, int h):width(w), height(h){
@@ -29,14 +28,9 @@ public:
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		/*if(select)
-			e->Graphics->DrawRectangle(gcnew Pen(Brushes::Red, 10), x, y, width, height);*/
+		if(select)
+			e->Graphics->DrawRectangle(gcnew Pen(Brushes::Red, 10), x, y, width, height);
 		e->Graphics->FillRectangle(brsh, x, y, width, height);
-		drawResize(e);
-	}
-	virtual void drawResize(System::Windows::Forms::PaintEventArgs^ e) override{
-		Brush^ brsh = gcnew System::Drawing::SolidBrush(Color::DarkGray);
-		e->Graphics->DrawRectangle(gcnew Pen(brsh, 5), x, y, width, height);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		if((this->x <= x) && (this->x2 >= x))
