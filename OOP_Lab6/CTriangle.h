@@ -2,7 +2,7 @@
 #include "PaintFigureBase.h"
 class CTriangle: public PaintFigureBase{
 private:
-	int x1, x2, y1, y2;
+	int x1, x2, y1;
 public:
 	CTriangle(){}
 	CTriangle(int x, int y){
@@ -53,5 +53,16 @@ public:
 		setX1(xC);
 		setX2(xC);
 		setY1(yC);
+	}
+	virtual void move(int xC, int yC, int w, int h) override{
+		if((y + yC >= 0) && (y1 + yC <= h) && (y1 + yC >= 0) && (y + yC <= h)){
+			if((x + xC >= 0) && (x1 + xC <= w) && (x1 + xC >= 0) && (x + xC <= w)){
+				setX(x+xC);
+				setX1(x1+xC);
+				setX2(x1+xC);
+				setY1(y1+yC);
+				setY(y+yC);
+			}
+		}
 	}
 };

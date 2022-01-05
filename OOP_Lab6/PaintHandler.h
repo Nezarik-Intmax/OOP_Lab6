@@ -29,19 +29,17 @@ public:
 	void setCollision(bool i){ collision = i; }
 	bool checkCollisions(int xC, int yC){
 		bool col = false;
-		for(figures.first(); !figures.eol(); figures.next()){
-			if(figures.getObject()->checkCollision(xC, yC)){
-				figures.getObject()->setSelect(!figures.getObject()->getSelect());
-				if(!multiSelect && col){
-					figures.prev();
-					figures.getObject()->setSelect(false);
-					figures.next();
-				}
-				col = true;
-			}else{
-				if(!multiSelect)
+		for(figures.last(); !figures.eol(); figures.prev()){
+			if(!col){
+				if(figures.getObject()->checkCollision(xC, yC)){
+					figures.getObject()->setSelect(!figures.getObject()->getSelect());
+					col = true;
+				} else if(!multiSelect)
 					figures.getObject()->setSelect(false);
 			}
+			else if(!multiSelect)
+				figures.getObject()->setSelect(false);
+			else break;
 		}
 		return col;
 	}

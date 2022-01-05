@@ -35,10 +35,7 @@ public:
 		if((l <= x) && (r >= x))
 			if((t <= y) && (b >= y))
 				return true;
-			else
-				return false;
-		else
-			return false;
+		return false;
 	}
 	virtual void setSize(int xC, int yC) override{
 		int width = getX() - xC;
