@@ -21,8 +21,9 @@ public:
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		if(select)
-			brsh = Brushes::Red;
+		if(select){
+			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x - (diameter / 2), y - (diameter / 2), diameter, diameter);
+		}
 		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);
 	}
 	virtual bool checkCollision(int x, int y) override{
@@ -42,5 +43,11 @@ public:
 	}
 	void setDiameter(int r){ this->diameter = r;}
 	int getDiameter(){ return this->diameter;}
+	virtual void move(int xC, int yC, int w, int h) override{
+		if((this->x + xC+(diameter/2) < w) && (this->x + xC - (diameter / 2) > 0))
+			this->x += xC;
+		if((this->y + yC + (diameter / 2) < h) && (this->y + yC - (diameter / 2) > 0))
+			this->y += yC;
+	}
 };
 #endif

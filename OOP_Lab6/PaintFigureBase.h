@@ -5,7 +5,6 @@ using namespace msclr;
 class PaintFigureBase{
 protected:
 	int x, y;
-	bool completed = true;
 	gcroot<Color> color;
 	bool select;
 public:
@@ -25,11 +24,15 @@ public:
 	virtual void setX(int x){ this->x = x; }
 	virtual void setY(int y){ this->y = y; }
 	virtual void setSelect(bool s = true){ this->select = s; }
-	virtual void update(){}
 	virtual int getX(){ return this->x; }
 	virtual int getY(){ return this->y; }
-	virtual bool getCompleted(){ return this->completed; }
 	virtual bool getSelect(){ return this->select; }
 	virtual void setSize(int xC, int yC){}
 	virtual void setColor(Color color){this->color = color;}
+	virtual void move(int xC, int yC, int w, int h){
+		if ((xC < w)&&(xC>0))
+			this->x += xC;
+		if ((yC < h) && (yC > 0))
+			this->y += yC;
+	}
 };

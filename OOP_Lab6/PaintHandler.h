@@ -17,14 +17,21 @@ public:
 	PaintHandler():type(0),color(System::Drawing::Color::Black){}
 	~PaintHandler(){}
 	void setType(int i){ type  = i;}
-	void setColor(System::Drawing::Color i){color = i;}
+	void setColor(System::Drawing::Color i){
+		color = i;
+		for(figures.first(); !figures.eol(); figures.next()){
+			if(figures.getObject()->getSelect()){
+				figures.getObject()->setColor(i);
+			}
+		}
+	}
 	void setMultiSelect(bool i){ multiSelect = i; }
 	void setCollision(bool i){ collision = i; }
 	bool checkCollisions(int xC, int yC){
 		bool col = false;
 		for(figures.first(); !figures.eol(); figures.next()){
 			if(figures.getObject()->checkCollision(xC, yC)){
-				figures.getObject()->setSelect();
+				figures.getObject()->setSelect(!figures.getObject()->getSelect());
 				if(!multiSelect && col){
 					figures.prev();
 					figures.getObject()->setSelect(false);
@@ -58,25 +65,23 @@ public:
 		}
 	}
 	void startDraw(int xC, int yC){
-		if(!paint){
-			switch(this->type){
-			case CIRCLE:
-				figures.add(new CCircle(xC, yC, 100, color));
-				break;
-			case ELLIPSE:
-				figures.add(new CEllipse(xC, yC, 10, 10, color));
-				break;
-			case RECTANGLE:
-				figures.add(new CRectangle(xC, yC, 10, 10, color));
-				break;
-			case TRIANGLE:
-				figures.add(new CTriangle(xC, yC, color));
-				break;
-			default:
-				figures.add(new CCircle(xC, yC, 100, color));
-			}
-			paint = true;
+		switch(this->type){
+		case CIRCLE:
+			figures.add(new CCircle(xC, yC, 100, color));
+			break;
+		case ELLIPSE:
+			figures.add(new CEllipse(xC, yC, 10, 10, color));
+			break;
+		case RECTANGLE:
+			figures.add(new CRectangle(xC, yC, 10, 10, color));
+			break;
+		case TRIANGLE:
+			figures.add(new CTriangle(xC, yC, color));
+			break;
+		default:
+			figures.add(new CCircle(xC, yC, 100, color));
 		}
+		paint = true;
 	}
 	void proccessDraw(int xC, int yC){
 		if((!collision) && (paint)){
@@ -85,12 +90,13 @@ public:
 		}
 	}
 	void endDraw(){
-		figures.last();
-		if(figures.length() > 0){
-			paint = !figures.getObject()->getCompleted();
-		}
-		if(paint){
-			figures.getObject()->update();
+		paint = false;
+	}
+	void move(int x, int y, int w, int h){
+		for(figures.first(); !figures.eol(); figures.next()){
+			if(figures.getObject()->getSelect()){
+				figures.getObject()->move(x, y, w, h);
+			}
 		}
 	}
 };

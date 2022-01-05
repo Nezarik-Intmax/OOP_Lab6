@@ -20,16 +20,11 @@ public:
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
+		int lx = invW ? x-width : x;
+		int ly = invH ? y-height : y;
 		if(select)
-			brsh = Brushes::Red;
-		if(invH && invW)
-			e->Graphics->FillRectangle(brsh, x-width, y-height, width, height);
-		else if(invH)
-			e->Graphics->FillRectangle(brsh, x, y - height, width, height);
-		else if(invW)
-			e->Graphics->FillRectangle(brsh, x - width, y, width, height);
-		else
-			e->Graphics->FillRectangle(brsh, x, y, width, height);
+			e->Graphics->DrawRectangle(gcnew Pen(Brushes::Red, 10), lx, ly, width, height);
+		e->Graphics->FillRectangle(brsh, lx, ly, width, height);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		int l, r, t, b;
@@ -57,4 +52,10 @@ public:
 	void setHeight(int r){ this->height = r; }
 	int getWidth(){  return this->width; }
 	int getHeight(){ return this->height; }
+	virtual void move(int xC, int yC, int w, int h) override{
+		if((this->x + xC + (width / 2) < w) && (this->x + xC - (width / 2) > 0))
+			this->x += xC;
+		if((this->y + yC + (height / 2) < h) && (this->y + yC - (height / 2) > 0))
+			this->y += yC;
+	}
 };

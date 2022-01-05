@@ -48,12 +48,14 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Button^ button6;
 	private: System::Windows::Forms::Button^ button7;
 	private: System::Windows::Forms::Button^ button8;
+	private: System::Windows::Forms::Timer^ moveTimer;
+	private: System::ComponentModel::IContainer^ components;
 
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -62,6 +64,7 @@ namespace OOPLab6 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -72,6 +75,7 @@ namespace OOPLab6 {
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->moveTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -178,6 +182,10 @@ namespace OOPLab6 {
 			this->button8->UseVisualStyleBackColor = true;
 			this->button8->Click += gcnew System::EventHandler(this, &MyPaintLab::button8_Click);
 			// 
+			// moveTimer
+			// 
+			this->moveTimer->Tick += gcnew System::EventHandler(this, &MyPaintLab::moveTimer_Tick);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -205,6 +213,8 @@ namespace OOPLab6 {
 		}
 #pragma endregion
 	PaintHandler pHnd;
+	Keys movDir;
+	//String movDir;
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
 		pHnd.paintAll(e);
 	}
@@ -215,11 +225,15 @@ namespace OOPLab6 {
 		} else if(e->Control){
 			pHnd.setMultiSelect(true);
 		}
+		movDir = e->KeyCode;
+		moveTimer->Enabled = true;
 	}
 	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
+		moveTimer->Enabled = false;
 		if(e->KeyData == System::Windows::Forms::Keys::ControlKey){
 			pHnd.setMultiSelect(false);
 		}
+		pictureBox1->Invalidate();
 	}
 	private: System::Void color_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setColor(((System::Windows::Forms::Button^)sender)->BackColor);
@@ -249,6 +263,17 @@ namespace OOPLab6 {
 	}
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setType(3);
+	}
+	private: System::Void moveTimer_Tick(System::Object^ sender, System::EventArgs^ e){
+		switch(movDir){
+		case Keys::W: pHnd.move(0, -3, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
+		case Keys::S: pHnd.move(0, 3, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
+		case Keys::D: pHnd.move(3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
+		case Keys::A: pHnd.move(-3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
+		default:
+			break;
+		}
+		pictureBox1->Invalidate();
 	}
 };
 
