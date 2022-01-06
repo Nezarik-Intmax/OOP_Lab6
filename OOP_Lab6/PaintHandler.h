@@ -4,6 +4,7 @@
 #include "CRectangle.h"
 #include "CEllipse.h"
 #include "CTriangle.h"
+#include "CGroup.h"
 enum figType{CIRCLE, ELLIPSE, RECTANGLE, TRIANGLE};
 ref class PaintHandler{
 private:
@@ -24,6 +25,18 @@ public:
 				figures.getObject()->setColor(i);
 			}
 		}
+	}
+	void group(){
+		CGroup* g = new CGroup();
+		for(figures.first(); !figures.eol();){
+			if(figures.getObject()->getSelect()){
+				g->addFigure(figures.getObject());
+				figures.popCurrent();
+			} else{
+				figures.next();
+			}
+		}
+		figures.add(g);
 	}
 	void setMultiSelect(bool i){ multiSelect = i; }
 	bool getMultiSelect(){ return multiSelect; }

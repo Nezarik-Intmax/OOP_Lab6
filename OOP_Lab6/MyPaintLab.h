@@ -230,6 +230,8 @@ namespace OOPLab6 {
 	}
 	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
 		moveTimer->Enabled = false;
+		if(e->KeyCode == Keys::G)
+			pHnd.group();
 		if(e->KeyData == System::Windows::Forms::Keys::ControlKey){
 			pHnd.setMultiSelect(false);
 		}

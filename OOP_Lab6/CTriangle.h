@@ -16,6 +16,12 @@ public:
 		this->select = true;
 		this->color = color;
 	}
+	CTriangle(const CTriangle *a){
+		this->x = a->x;
+		this->y = a->y;
+		this->select = a->select;
+		this->color = a->color;
+	}
 	/*CTriangle(int x, int y, int x2, int y2, int x3, int y3, Color color){
 		this->x = x;
 		this->y = y;

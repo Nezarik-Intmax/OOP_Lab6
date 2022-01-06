@@ -26,6 +26,18 @@ public:
 		this->select = true;
 		this->color = color;
 	}
+	CRectangle(const CRectangle *a){
+		this->x = a->x;
+		this->y = a->y;
+		this->x2 = a->x2;
+		this->y2 = a->y2;
+		this->xOrigin = a->xOrigin;
+		this->yOrigin = a->yOrigin;
+		this->select = a->select;
+		this->color = a->color;
+		this->width = a->width;
+		this->height = a->height;
+	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		if(select)

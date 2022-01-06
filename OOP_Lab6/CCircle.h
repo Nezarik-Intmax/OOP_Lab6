@@ -19,6 +19,13 @@ public:
 		this->select = true;
 		this->color = color;
 	}
+	CCircle(const CCircle* a){
+		this->x = a->x;
+		this->y = a->y;
+		this->select = a->select;
+		this->color = a->color;
+		this->diameter = a->diameter;
+	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		if(select)
