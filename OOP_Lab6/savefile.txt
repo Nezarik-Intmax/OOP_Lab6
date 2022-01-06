@@ -1,0 +1,5 @@
+4
+CIRCLE: 105, 149, 87, Color [Black]
+RECTANGLE: 247, 102, 333, 163, 247, 102, 86, 61, Color [Black]
+ELLIPSE: 504, 142, 592, 224, 504, 142, 88, 82, Color [Black]
+TRIANGLE: 301, 265, 410, 346, 356, Color [Black]

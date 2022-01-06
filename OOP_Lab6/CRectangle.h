@@ -83,4 +83,8 @@ public:
 			this->yOrigin += yC;
 		}
 	}
+	virtual void save(std::FILE* stream) override{
+		Color c = this->color;
+		fprintf(stream, "RECTANGLE: %d, %d, %d, %d, %d, %d, %d, %d, %s\n", x, y, x2, y2, xOrigin, yOrigin, width, height, c.ToString());
+	};
 };

@@ -5,6 +5,7 @@
 #include "CEllipse.h"
 #include "CTriangle.h"
 #include "CGroup.h"
+#include <iostream>
 enum figType{CIRCLE, ELLIPSE, RECTANGLE, TRIANGLE};
 ref class PaintHandler{
 private:
@@ -115,5 +116,51 @@ public:
 				figures.getObject()->move(x, y, w, h);
 			}
 		}
+	}
+	void save(char* filename){
+		std::FILE* stream;
+		if((stream = fopen(filename, "w")) != nullptr){
+			fprintf(stream, "%d\n", figures.length());
+			for(figures.first(); !figures.eol(); figures.next())
+				figures.getObject()->save(stream);
+			fclose(stream);
+		}
+	}
+	void load(char* filename){
+		/*std::FILE* stream;
+		if((stream = fopen(filename, "r")) != nullptr){
+			int count;
+			fscanf(stream, "%d\n", &count);
+			for(int i = 0; i < count; i++){
+			
+			}
+			for(figures.first(); !figures.eol(); figures.next())
+				figures.getObject()->save(stream);
+			fclose(stream);
+		}
+
+
+
+		char code;
+
+
+		// for every shape to read
+			// read the code, the line that explains
+			// what concrete object (CCircle or CPoint)
+			// should be read from the file
+			fscanf(stream, "%c\n", &code);
+			// ask the factory method to create the object
+			// by the code from the file
+			_shapes[i] = createShape(code);
+			// the factory method will in fact create either
+			// CCircle or CPoint, but here we do not
+			// know the concrete type, because we receive
+			// it as a pointer to CShape
+			if(_shapes[i] != nullptr){
+				// if the object has been created, ask it
+				// to read itself from the file
+				_shapes[i]->load(stream);
+			}
+		}*/
 	}
 };

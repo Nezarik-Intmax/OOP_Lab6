@@ -63,4 +63,6 @@ public:
 			groupFigures->getObject()->move(xC, yC, w, h);
 		}
 	}
+	virtual void save(std::FILE* stream) override{
+	};
 };

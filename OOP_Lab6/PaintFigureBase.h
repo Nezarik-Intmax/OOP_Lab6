@@ -1,5 +1,6 @@
 #pragma once
 #include <msclr/gcroot.h>
+#include <iostream>
 using namespace System::Drawing;
 using namespace msclr;
 class PaintFigureBase{
@@ -36,4 +37,5 @@ public:
 		if ((yC < h) && (yC > 0))
 			this->y += yC;
 	}
+	virtual void save(std::FILE* stream){};
 };

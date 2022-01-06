@@ -59,5 +59,9 @@ public:
 		if((this->y + yC + (diameter / 2) < h) && (this->y + yC - (diameter / 2) > 0))
 			this->y += yC;
 	}
+	virtual void save(std::FILE* stream) override{
+		Color c = this->color;
+		fprintf(stream, "CIRCLE: %d, %d, %d, %s\n", x, y, diameter, c.ToString());
+	};
 };
 #endif

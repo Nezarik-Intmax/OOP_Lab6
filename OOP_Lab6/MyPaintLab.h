@@ -49,6 +49,8 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Button^ button7;
 	private: System::Windows::Forms::Button^ button8;
 	private: System::Windows::Forms::Timer^ moveTimer;
+	private: System::Windows::Forms::Button^ button9;
+	private: System::Windows::Forms::Button^ button10;
 	private: System::ComponentModel::IContainer^ components;
 
 	private:
@@ -76,6 +78,8 @@ namespace OOPLab6 {
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->moveTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button9 = (gcnew System::Windows::Forms::Button());
+			this->button10 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -186,11 +190,32 @@ namespace OOPLab6 {
 			// 
 			this->moveTimer->Tick += gcnew System::EventHandler(this, &MyPaintLab::moveTimer_Tick);
 			// 
+			// button9
+			// 
+			this->button9->Location = System::Drawing::Point(798, 13);
+			this->button9->Name = L"button9";
+			this->button9->Size = System::Drawing::Size(97, 23);
+			this->button9->TabIndex = 10;
+			this->button9->Text = L"Load";
+			this->button9->UseVisualStyleBackColor = true;
+			// 
+			// button10
+			// 
+			this->button10->Location = System::Drawing::Point(695, 12);
+			this->button10->Name = L"button10";
+			this->button10->Size = System::Drawing::Size(97, 23);
+			this->button10->TabIndex = 11;
+			this->button10->Text = L"Save";
+			this->button10->UseVisualStyleBackColor = true;
+			this->button10->Click += gcnew System::EventHandler(this, &MyPaintLab::button10_Click);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button10);
+			this->Controls->Add(this->button9);
 			this->Controls->Add(this->button8);
 			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
@@ -280,6 +305,9 @@ namespace OOPLab6 {
 			break;
 		}
 		pictureBox1->Invalidate();
+	}
+	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.save("savefile.txt");
 	}
 };
 
