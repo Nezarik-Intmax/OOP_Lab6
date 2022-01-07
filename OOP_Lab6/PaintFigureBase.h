@@ -38,4 +38,5 @@ public:
 			this->y += yC;
 	}
 	virtual void save(std::FILE* stream){};
+	virtual void load(std::FILE* stream){};
 };

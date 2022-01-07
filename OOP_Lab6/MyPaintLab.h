@@ -198,6 +198,7 @@ namespace OOPLab6 {
 			this->button9->TabIndex = 10;
 			this->button9->Text = L"Load";
 			this->button9->UseVisualStyleBackColor = true;
+			this->button9->Click += gcnew System::EventHandler(this, &MyPaintLab::button9_Click);
 			// 
 			// button10
 			// 
@@ -308,6 +309,9 @@ namespace OOPLab6 {
 	}
 	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.save("savefile.txt");
+	}
+	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.load("savefile.txt");
 	}
 };
 

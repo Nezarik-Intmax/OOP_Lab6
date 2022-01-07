@@ -61,7 +61,16 @@ public:
 	}
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
-		fprintf(stream, "CIRCLE: %d, %d, %d, %s\n", x, y, diameter, c.ToString());
+		fprintf(stream, "CIRCLE %d %d %d %s\n", x, y, diameter, c.ToString());
+	};
+	virtual void load(std::FILE* stream) override{
+		Color c = this->color;
+		char col[80];
+		fscanf(stream, "%d", &this->x);
+		fscanf(stream, "%d", &this->y);
+		fscanf(stream, "%d", &this->diameter);
+		fscanf(stream, "%s", &col);
+		fscanf(stream, "%s", &col);
 	};
 };
 #endif
