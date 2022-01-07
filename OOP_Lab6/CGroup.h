@@ -3,11 +3,10 @@
 
 class CGroup: public PaintFigureBase{
 private:
-	int count;
-	int width, height;
+	//int width, height;
 	gcroot<MyContainer<PaintFigureBase>^> groupFigures;
 public:
-	CGroup():width(0), height(0){
+	CGroup()/*:width(0), height(0)*/{
 		groupFigures = gcnew MyContainer<PaintFigureBase>;
 	}
 	/*CGroup(int x, int y, int w, int h):width(w), height(h){
@@ -54,15 +53,34 @@ public:
 			groupFigures->getObject()->resize(xC, yC, sign);
 		}
 	}
-	void setWidth(int r){ this->width = r; }
+	/*void setWidth(int r){ this->width = r; }
 	void setHeight(int r){ this->height = r; }
 	int getWidth(){ return this->width; }
-	int getHeight(){ return this->height; }
+	int getHeight(){ return this->height; }*/
 	virtual void move(int xC, int yC, int w, int h) override{
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
 			groupFigures->getObject()->move(xC, yC, w, h);
 		}
 	}
 	virtual void save(std::FILE* stream) override{
+		fprintf(stream, "GROUP %d\n", groupFigures->length());
+		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next())
+			groupFigures->getObject()->save(stream);
+	};
+	virtual void load(std::FILE* stream) override{
+		int count = 0;
+		fscanf(stream, "%d\n", &count);
+		char s[80];
+		PaintFigureBase* tmp;
+		for(int i = 0; i < count; i++){
+			fscanf(stream, "%s", s);
+			if(!strcmp(s, "CIRCLE")) tmp = new CCircle();
+			else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
+			else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
+			else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
+			else if(!strcmp(s, "GROUP")) tmp = new CGroup();
+			tmp->load(stream);
+			groupFigures->add(tmp);
+		}
 	};
 };

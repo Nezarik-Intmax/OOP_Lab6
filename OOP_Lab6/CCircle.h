@@ -64,13 +64,18 @@ public:
 		fprintf(stream, "CIRCLE %d %d %d %s\n", x, y, diameter, c.ToString());
 	};
 	virtual void load(std::FILE* stream) override{
-		Color c = this->color;
 		char col[80];
 		fscanf(stream, "%d", &this->x);
 		fscanf(stream, "%d", &this->y);
 		fscanf(stream, "%d", &this->diameter);
 		fscanf(stream, "%s", &col);
 		fscanf(stream, "%s", &col);
+		int len = strlen(col);
+		for(int i=0; i < strlen(col)-2; i++)
+			col[i] = col[i+1];
+		col[len-2] = '\0';
+		System::String^ a = gcnew System::String(col);
+		this->color = Color::FromName(a);//ColorTranslator::FromHtml(a); 
 	};
 };
 #endif

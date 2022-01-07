@@ -312,6 +312,7 @@ namespace OOPLab6 {
 	}
 	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.load("savefile.txt");
+		pictureBox1->Invalidate();
 	}
 };
 

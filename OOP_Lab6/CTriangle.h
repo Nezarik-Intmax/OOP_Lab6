@@ -100,6 +100,22 @@ public:
 	}
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
-		fprintf(stream, "TRIANGLE: %d, %d, %d, %d, %d, %s\n", x, y, x1, y1, x2, c.ToString());
+		fprintf(stream, "TRIANGLE %d %d %d %d %d %s\n", x, y, x1, y1, x2, c.ToString());
+	};
+	virtual void load(std::FILE* stream) override{
+		char col[80];
+		fscanf(stream, "%d", &this->x);
+		fscanf(stream, "%d", &this->y);
+		fscanf(stream, "%d", &this->x1);
+		fscanf(stream, "%d", &this->y1);
+		fscanf(stream, "%d", &this->x2);
+		fscanf(stream, "%s", &col);
+		fscanf(stream, "%s", &col);
+		int len = strlen(col);
+		for(int i = 0; i < strlen(col) - 2; i++)
+			col[i] = col[i + 1];
+		col[len - 2] = '\0';
+		System::String^ a = gcnew System::String(col);
+		this->color = Color::FromName(a);
 	};
 };

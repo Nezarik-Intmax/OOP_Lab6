@@ -130,29 +130,20 @@ public:
 	void load(char* filename){
 		std::FILE* stream;
 		if((stream = fopen(filename, "r")) != nullptr){
-			int count = 1;
+			int count = 0;
 			fscanf(stream, "%d\n", &count);
 			char s[80];
 			PaintFigureBase* tmp;
-			for(int i = 0; i < count + 1; i++){
+			for(int i = 0; i < count; i++){
 				fscanf(stream, "%s", s);
-				if(s == "CIRCLE") tmp = new CCircle();
-				else if(s == "ELLIPSE") tmp = new CEllipse();
-				else if(s == "RECTANGLE") tmp = new CRectangle();
-				else if(s == "TRIANGLE") tmp = new CTriangle();
-				else if(s == "GROUP") tmp = new CGroup();
+				if(!strcmp(s, "CIRCLE")) tmp = new CCircle();
+				else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
+				else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
+				else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
+				else if(!strcmp(s, "GROUP")) tmp = new CGroup();
 				tmp->load(stream);
 				figures.add(tmp);
 			}
-			/*
-			char* b;
-			int c;
-			char a[80];
-				b = strstr(s, ":");
-				c = b-s;
-				strncpy(a, s, c);
-				a[c] = '\0';
-			*/
 			fclose(stream);
 		}
 	}

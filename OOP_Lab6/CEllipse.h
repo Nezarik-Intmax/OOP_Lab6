@@ -89,6 +89,25 @@ public:
 	}
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
-		fprintf(stream, "ELLIPSE: %d, %d, %d, %d, %d, %d, %d, %d, %s\n", x, y, x2, y2, xOrigin, yOrigin, width, height, c.ToString());
+		fprintf(stream, "ELLIPSE %d %d %d %d %d %d %d %d %s\n", x, y, x2, y2, xOrigin, yOrigin, width, height, c.ToString());
+	};
+	virtual void load(std::FILE* stream) override{
+		char col[80];
+		fscanf(stream, "%d", &this->x);
+		fscanf(stream, "%d", &this->y);
+		fscanf(stream, "%d", &this->x2);
+		fscanf(stream, "%d", &this->y2);
+		fscanf(stream, "%d", &this->xOrigin);
+		fscanf(stream, "%d", &this->yOrigin);
+		fscanf(stream, "%d", &this->width);
+		fscanf(stream, "%d", &this->height);
+		fscanf(stream, "%s", &col);
+		fscanf(stream, "%s", &col);
+		int len = strlen(col);
+		for(int i = 0; i < strlen(col) - 2; i++)
+			col[i] = col[i + 1];
+		col[len - 2] = '\0';
+		System::String^ a = gcnew System::String(col);
+		this->color = Color::FromName(a);//ColorTranslator::FromHtml(a); 
 	};
 };

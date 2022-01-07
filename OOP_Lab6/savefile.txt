@@ -1,3 +1,4 @@
-2
-CIRCLE 157, 116, 107, Color [Black]
-CIRCLE 425, 232, 105, Color [Black]
+1
+GROUP 2
+CIRCLE 161 180 58 Color [Black]
+CIRCLE 258 230 51 Color [Black]
