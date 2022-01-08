@@ -22,16 +22,6 @@ public:
 		this->select = a->select;
 		this->color = a->color;
 	}
-	/*CTriangle(int x, int y, int x2, int y2, int x3, int y3, Color color){
-		this->x = x;
-		this->y = y;
-		this->x1 = x2;
-		this->y1 = y2;
-		this->x2 = x3;
-		this->y2 = y3;
-		this->select = true;
-		this->color = color;
-	}*/
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		array<Point>^ angles = gcnew array<Point>(3);
