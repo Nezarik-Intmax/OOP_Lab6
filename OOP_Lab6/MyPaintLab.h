@@ -51,6 +51,7 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Timer^ moveTimer;
 	private: System::Windows::Forms::Button^ button9;
 	private: System::Windows::Forms::Button^ button10;
+	private: System::Windows::Forms::Button^ button11;
 	private: System::ComponentModel::IContainer^ components;
 
 	private:
@@ -80,6 +81,7 @@ namespace OOPLab6 {
 			this->moveTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->button10 = (gcnew System::Windows::Forms::Button());
+			this->button11 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -188,6 +190,7 @@ namespace OOPLab6 {
 			// 
 			// moveTimer
 			// 
+			this->moveTimer->Interval = 50;
 			this->moveTimer->Tick += gcnew System::EventHandler(this, &MyPaintLab::moveTimer_Tick);
 			// 
 			// button9
@@ -210,11 +213,22 @@ namespace OOPLab6 {
 			this->button10->UseVisualStyleBackColor = true;
 			this->button10->Click += gcnew System::EventHandler(this, &MyPaintLab::button10_Click);
 			// 
+			// button11
+			// 
+			this->button11->Location = System::Drawing::Point(377, 13);
+			this->button11->Name = L"button11";
+			this->button11->Size = System::Drawing::Size(89, 23);
+			this->button11->TabIndex = 12;
+			this->button11->Text = L"Отрезок";
+			this->button11->UseVisualStyleBackColor = true;
+			this->button11->Click += gcnew System::EventHandler(this, &MyPaintLab::button11_Click);
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button11);
 			this->Controls->Add(this->button10);
 			this->Controls->Add(this->button9);
 			this->Controls->Add(this->button8);
@@ -265,6 +279,7 @@ namespace OOPLab6 {
 	}
 	private: System::Void color_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setColor(((System::Windows::Forms::Button^)sender)->BackColor);
+		pictureBox1->Invalidate();
 	}
 	private: System::Void pictureBox1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 		pHnd.paintClick(e->X, e->Y);
@@ -291,6 +306,9 @@ namespace OOPLab6 {
 	}
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setType(3);
+	}
+	private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setType(4);
 	}
 	private: System::Void moveTimer_Tick(System::Object^ sender, System::EventArgs^ e){
 		switch(inputCom){

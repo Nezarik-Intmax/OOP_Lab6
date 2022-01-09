@@ -37,6 +37,11 @@ public:
 		}
 		return col;
 	}
+	virtual void setColor(Color color) override{
+		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
+			groupFigures->getObject()->setColor(color);
+		}
+	}
 	virtual void setSelect(bool s = true) override{
 		this->select = s;
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){

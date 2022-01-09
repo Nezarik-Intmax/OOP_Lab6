@@ -4,10 +4,11 @@
 #include "CRectangle.h"
 #include "CEllipse.h"
 #include "CTriangle.h"
+#include "CSection.h"
 #include "CGroup.h"
 #include <iostream>
 #include <string.h>
-enum figType{CIRCLE, ELLIPSE, RECTANGLE, TRIANGLE};
+enum figType{CIRCLE, ELLIPSE, RECTANGLE, TRIANGLE, SECTION};
 ref class PaintHandler{
 private:
 	MyContainer<PaintFigureBase> figures;
@@ -97,6 +98,9 @@ public:
 		case TRIANGLE:
 			figures.add(new CTriangle(xC, yC, color));
 			break;
+		case SECTION:
+			figures.add(new CSection(xC, yC, 10, 10, color));
+			break;
 		default:
 			figures.add(new CCircle(xC, yC, 100, color));
 		}
@@ -140,6 +144,7 @@ public:
 				else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
 				else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
 				else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
+				else if(!strcmp(s, "SECTION")) tmp = new CSection();
 				else if(!strcmp(s, "GROUP")) tmp = new CGroup();
 				tmp->load(stream);
 				figures.add(tmp);

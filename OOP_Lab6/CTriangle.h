@@ -66,11 +66,12 @@ public:
 			setX2(x1);
 		}
 		if(yC < 0){
-			if(y1 < x)
+			if(y1 < y)
 				y1 += yC * s;
 			else
 				y += yC * s;
-		} else if(yC > 0){
+		}
+		else if(yC > 0){
 			if(y1 > y)
 				y1 += yC * s;
 			else
