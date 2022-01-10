@@ -38,6 +38,7 @@ public:
 		this->width = a->width;
 		this->height = a->height;
 	}
+	virtual System::String^ getType() override{ return "ELLIPSE"; }
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		if(select)

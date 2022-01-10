@@ -29,6 +29,7 @@ public:
 		this->select = a->select;
 		this->color = a->color;
 	}
+	virtual System::String^ getType() override{ return "SECTION"; }
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		e->Graphics->DrawLine(gcnew Pen(color, 2), x, y, x2, y2);
 		if(select)

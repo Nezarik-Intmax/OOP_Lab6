@@ -28,6 +28,7 @@ public:
 	virtual int getX(){ return this->x; }
 	virtual int getY(){ return this->y; }
 	virtual bool getSelect(){ return this->select; }
+	virtual System::String^ getType(){return "BASE";};
 	virtual void setSize(int xC, int yC){}
 	virtual void resize(int xC, int yC, bool sign){}
 	virtual void setColor(Color color){this->color = color;}

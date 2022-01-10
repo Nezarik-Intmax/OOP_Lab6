@@ -9,6 +9,7 @@ public:
 	CGroup()/*:width(0), height(0)*/{
 		groupFigures = gcnew MyContainer<PaintFigureBase>;
 	}
+	~CGroup(){delete(groupFigures);}
 	/*CGroup(int x, int y, int w, int h):width(w), height(h){
 		this->x = x;
 		this->y = y;
@@ -20,6 +21,8 @@ public:
 		this->select = true;
 		this->color = color;
 	}*/
+	virtual System::String^ getType() override{return "GROUP";}
+	MyContainer<PaintFigureBase>^ getContainer(){ return groupFigures; }
 	void addFigure(PaintFigureBase* fig){
 		groupFigures->add(fig);
 	}

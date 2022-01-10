@@ -52,6 +52,7 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Button^ button9;
 	private: System::Windows::Forms::Button^ button10;
 	private: System::Windows::Forms::Button^ button11;
+	private: System::Windows::Forms::TreeView^ treeView1;
 	private: System::ComponentModel::IContainer^ components;
 
 	private:
@@ -82,6 +83,7 @@ namespace OOPLab6 {
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->button10 = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
+			this->treeView1 = (gcnew System::Windows::Forms::TreeView());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -223,11 +225,19 @@ namespace OOPLab6 {
 			this->button11->UseVisualStyleBackColor = true;
 			this->button11->Click += gcnew System::EventHandler(this, &MyPaintLab::button11_Click);
 			// 
+			// treeView1
+			// 
+			this->treeView1->Location = System::Drawing::Point(902, 67);
+			this->treeView1->Name = L"treeView1";
+			this->treeView1->Size = System::Drawing::Size(156, 522);
+			this->treeView1->TabIndex = 13;
+			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(907, 601);
+			this->ClientSize = System::Drawing::Size(1066, 601);
+			this->Controls->Add(this->treeView1);
 			this->Controls->Add(this->button11);
 			this->Controls->Add(this->button10);
 			this->Controls->Add(this->button9);
@@ -244,6 +254,7 @@ namespace OOPLab6 {
 			this->KeyPreview = true;
 			this->Name = L"MyPaintLab";
 			this->Text = L"MyPaintLab";
+			this->Load += gcnew System::EventHandler(this, &MyPaintLab::MyPaintLab_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyPaintLab::MyForm_KeyDown);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &MyPaintLab::MyForm_KeyUp);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -255,6 +266,9 @@ namespace OOPLab6 {
 	PaintHandler pHnd;
 	Keys inputCom;
 	//String inputCom;
+	private: System::Void MyPaintLab_Load(System::Object^ sender, System::EventArgs^ e){
+		pHnd.observer += gcnew System::EventHandler(this, &MyPaintLab::UpdateTree);
+	}
 	private: System::Void pictureBox1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e){
 		pHnd.paintAll(e);
 	}
@@ -320,8 +334,7 @@ namespace OOPLab6 {
 		case Keys::K: pHnd.resizeAll(0, 3, !pHnd.getMultiSelect()); break;
 		case Keys::L: pHnd.resizeAll(3, 0, !pHnd.getMultiSelect()); break;
 		case Keys::J: pHnd.resizeAll(-3, 0, !pHnd.getMultiSelect()); break;
-		default:
-			break;
+		default: break;
 		}
 		pictureBox1->Invalidate();
 	}
@@ -331,6 +344,29 @@ namespace OOPLab6 {
 	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.load("savefile.txt");
 		pictureBox1->Invalidate();
+	}
+	private: System::Void UpdateTree(System::Object^ sender, System::EventArgs^ e){
+		TreeNode^ tn;
+		if(treeView1->GetNodeCount(1) != 0){
+			treeView1->Nodes->Clear();
+			tn = treeView1->Nodes->Add("Figures", "Figures");
+		}
+		else
+			tn = treeView1->Nodes->Add("Figures", "Figures");
+		MyContainer<PaintFigureBase>^ figures = pHnd.getContainer();
+		for(figures->first(); !figures->eol(); figures->next()){
+			processNode(tn, figures->getObject());
+		}
+		//treeView1->Nodes->Add();
+	}
+	private: System::Void processNode(TreeNode^ tn, PaintFigureBase* o){
+		TreeNode^ newtn = tn->Nodes->Add(o->getType(), o->getType());
+		if(o->getType() == "GROUP"){
+			MyContainer<PaintFigureBase>^ figures = dynamic_cast<CGroup*>(o)->getContainer();
+			for(figures->first(); !figures->eol(); figures->next()){
+				processNode(newtn, figures->getObject());
+			}
+		}
 	}
 };
 
