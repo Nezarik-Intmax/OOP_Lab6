@@ -237,12 +237,13 @@ namespace OOPLab6 {
 	}
 	private: System::Void color_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setColor(((System::Windows::Forms::Button^)sender)->BackColor);
+		pictureBox1->Invalidate();
 	}
 	private: System::Void pictureBox1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
 		pHnd.paintClick(e->X, e->Y);
 	}
 	private: System::Void pictureBox1_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
-		pHnd.proccessDraw(e->X, e->Y);
+		pHnd.proccessDraw(e->X, e->Y, pictureBox1->Size.Width, pictureBox1->Size.Height);
 		pictureBox1->Invalidate();
 	}
 	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e){
@@ -270,10 +271,10 @@ namespace OOPLab6 {
 		case Keys::S: pHnd.move(0, 3, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
 		case Keys::D: pHnd.move(3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
 		case Keys::A: pHnd.move(-3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
-		case Keys::I: pHnd.resizeAll(0, -3, !pHnd.getMultiSelect()); break;
-		case Keys::K: pHnd.resizeAll(0, 3, !pHnd.getMultiSelect()); break;
-		case Keys::L: pHnd.resizeAll(3, 0, !pHnd.getMultiSelect()); break;
-		case Keys::J: pHnd.resizeAll(-3, 0, !pHnd.getMultiSelect()); break;
+		case Keys::I: pHnd.resizeAll(0, -3, pictureBox1->Size.Width, pictureBox1->Size.Height, !pHnd.getMultiSelect()); break;
+		case Keys::K: pHnd.resizeAll(0, 3, pictureBox1->Size.Width, pictureBox1->Size.Height, !pHnd.getMultiSelect()); break;
+		case Keys::L: pHnd.resizeAll(3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height, !pHnd.getMultiSelect()); break;
+		case Keys::J: pHnd.resizeAll(-3, 0, pictureBox1->Size.Width, pictureBox1->Size.Height, !pHnd.getMultiSelect()); break;
 		default:
 			break;
 		}

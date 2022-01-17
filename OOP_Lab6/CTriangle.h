@@ -8,6 +8,9 @@ public:
 	CTriangle(int x, int y){
 		this->x = x;
 		this->y = y;
+		setX1(x);
+		setX2(x);
+		setY1(y);
 		this->select = true;
 	}
 	CTriangle(int x, int y, Color color){
@@ -15,6 +18,9 @@ public:
 		this->y = y;
 		this->select = true;
 		this->color = color;
+		setX1(x);
+		setX2(x);
+		setY1(y);
 	}
 	/*CTriangle(int x, int y, int x2, int y2, int x3, int y3, Color color){
 		this->x = x;
@@ -48,48 +54,66 @@ public:
 	void setX1(int xC){ this->x1 = xC; }
 	void setY1(int yC){ this->y1 = yC; }
 	void setX2(int xC){ this->x2 = xC - ((xC - this->x)/2); }
-	virtual void setSize(int xC, int yC) override{
-		setX1(xC);
-		setX2(xC);
-		setY1(yC);
+	virtual void setSize(int xC, int yC, int w, int h) override{
+		if(!checkBorderX(xC - x1, w)){
+			setX1(xC);
+			setX2(xC);
+		}
+		if(!checkBorderY(yC - y1, h)){
+			setY1(yC);
+		}
 	}
-	virtual void resize(int xC, int yC, bool sign) override{
+	virtual void resize(int xC, int yC, int w, int h, bool sign) override{
 		int s = sign ? 1 : -1;
-		if(xC < 0){
-			if(x1 < x)
-				x1 += xC * s;
-			else
-				x += xC * s;
-			setX2(x1);
+		if(!checkBorderX(xC*s, w)){
+			if(xC < 0){
+				if(x1 < x)
+					x1 += xC * s;
+				else
+					x += xC * s;
+				setX2(x1);
+			}
+			else if(xC > 0){
+				if(x1 > x)
+					x1 += xC * s;
+				else
+					x += xC * s;
+				setX2(x1);
+			}
 		}
-		else if(xC > 0){
-			if(x1 > x)
-				x1 += xC * s;
-			else
-				x += xC * s;
-			setX2(x1);
+		if(!checkBorderY(yC*s, h)){
+			if(yC < 0){
+				if(y1 < y)
+					y1 += yC * s;
+				else
+					y += yC * s;
+			} else if(yC > 0){
+				if(y1 > y)
+					y1 += yC * s;
+				else
+					y += yC * s;
+			}
 		}
-		if(yC < 0){
-			if(y1 < x)
-				y1 += yC * s;
-			else
-				y += yC * s;
-		} else if(yC > 0){
-			if(y1 > y)
-				y1 += yC * s;
-			else
-				y += yC * s;
-		}
+	}
+	virtual bool checkBorderX(int xC, int w) override{
+		if((x + xC >= 0) && (x1 + xC <= w) && (x1 + xC >= 0) && (x + xC <= w))
+			return false;
+		return true;
+	}
+	virtual bool checkBorderY(int yC, int h) override{
+		if((y + yC >= 0) && (y1 + yC <= h) && (y1 + yC >= 0) && (y + yC <= h))
+			return false;
+		return true;
 	}
 	virtual void move(int xC, int yC, int w, int h) override{
-		if((y + yC >= 0) && (y1 + yC <= h) && (y1 + yC >= 0) && (y + yC <= h)){
-			if((x + xC >= 0) && (x1 + xC <= w) && (x1 + xC >= 0) && (x + xC <= w)){
-				setX(x+xC);
-				setX1(x1+xC);
-				setX2(x1+xC);
-				setY1(y1+yC);
-				setY(y+yC);
-			}
+		if(!checkBorderX(xC, w)){
+			setX(x+xC);
+			setX1(x1+xC);
+			setX2(x1+xC);
+		}
+		if(!checkBorderY(yC, h)){
+			setY1(y1+yC);
+			setY(y+yC);
 		}
 	}
 };

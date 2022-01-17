@@ -34,22 +34,36 @@ public:
 		else
 			return false;
 	}
-	virtual void setSize(int xC, int yC) override{
-		int width = getX() - xC;
-		int height = getY() - yC;
-		int r = sqrt(width * width + height * height);
-		setDiameter(r);
+	virtual void setSize(int xC, int yC, int w, int h) override{
+		if(!checkBorderX(xC - x - (diameter / 2), w))
+			if(!checkBorderY(yC - y - (diameter / 2), h)){
+				int width = getX() - xC;
+				int height = getY() - yC;
+				int r = sqrt(width * width + height * height);
+				setDiameter(r);
+			}
 	}
-	virtual void resize(int xOffset, int yOffset, bool sign) override{
+	virtual void resize(int xOffset, int yOffset, int w, int h, bool sign) override{
 		int s = sign ? 1 : -1;
-		setDiameter(getDiameter() + (abs(yOffset)*s) + (abs(xOffset)*s));
+		setSize(getX()+(xOffset*s), getY() + (yOffset * s), w, h);
+		//setDiameter(getDiameter() + (abs(yOffset)*s) + (abs(xOffset)*s));
+	}
+	virtual bool checkBorderX(int xC, int w) override{
+		if((this->x + xC + (diameter / 2) < w) && (this->x + xC - (diameter / 2) > 0))
+			return false;
+		return true;
+	}
+	virtual bool checkBorderY(int yC, int h) override{
+		if((this->y + yC + (diameter / 2) < h) && (this->y + yC - (diameter / 2) > 0))
+			return false;
+		return true;
 	}
 	void setDiameter(int r){ this->diameter = r;}
 	int getDiameter(){ return this->diameter;}
 	virtual void move(int xC, int yC, int w, int h) override{
-		if((this->x + xC+(diameter/2) < w) && (this->x + xC - (diameter / 2) > 0))
+		if(!checkBorderX(xC, w))
 			this->x += xC;
-		if((this->y + yC + (diameter / 2) < h) && (this->y + yC - (diameter / 2) > 0))
+		if(!checkBorderY(yC, h))
 			this->y += yC;
 	}
 };
