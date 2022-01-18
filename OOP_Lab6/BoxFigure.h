@@ -37,8 +37,8 @@ public:
 			x2 = xC;
 			setWidth(x2 - x);
 		}
-			if(yC < yOrigin){ 
-		if(!checkBorderY(yC - y, h)){
+		if(yC < yOrigin){ 
+			if(!checkBorderY(yC - y, h)){
 				y = yC;
 				setHeight(y2 - y);
 			}

@@ -8,9 +8,9 @@ public:
 	CEllipse(int x, int y, int w, int h, Color color):CBoxFigure(x, y, w, h, color){}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		if(select)
-			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x, y, width, height);
 		e->Graphics->FillEllipse(brsh, x, y, width, height);
+		if(select)
+			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 6), x + 3, y + 3, width - 6, height - 6);
 	}
 	virtual bool checkCollision(int xC, int yC) override{
 		double a = width/2;
