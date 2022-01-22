@@ -19,6 +19,13 @@ public:
 		this->select = true;
 		this->color = color;
 	}
+	CCircle(const CCircle* a){
+		this->x = a->x;
+		this->y = a->y;
+		this->select = a->select;
+		this->color = a->color;
+		this->diameter = a->diameter;
+	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);
@@ -72,5 +79,23 @@ public:
 		if(!checkBorderY(yC, h))
 			this->y += yC;
 	}
+	virtual void save(std::FILE* stream) override{
+		Color c = this->color;
+		fprintf(stream, "CIRCLE %d %d %d %s\n", x, y, diameter, c.ToString());
+	};
+	virtual void load(std::FILE* stream) override{
+		char col[80];
+		fscanf(stream, "%d", &this->x);
+		fscanf(stream, "%d", &this->y);
+		fscanf(stream, "%d", &this->diameter);
+		fscanf(stream, "%s", &col);
+		fscanf(stream, "%s", &col);
+		int len = strlen(col);
+		for(int i=0; i < strlen(col)-2; i++)
+			col[i] = col[i+1];
+		col[len-2] = '\0';
+		System::String^ a = gcnew System::String(col);
+		this->color = Color::FromName(a);//ColorTranslator::FromHtml(a); 
+	};
 };
 #endif

@@ -128,7 +128,9 @@
     <ClInclude Include="BoxFigure.h" />
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CEllipse.h" />
+    <ClInclude Include="CGroup.h" />
     <ClInclude Include="CRectangle.h" />
+    <ClInclude Include="CSection.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="MyContainer.h" />
     <ClInclude Include="MyPaintLab.h">

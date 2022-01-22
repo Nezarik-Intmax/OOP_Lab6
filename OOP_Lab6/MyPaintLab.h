@@ -49,6 +49,9 @@ namespace OOPLab6 {
 	private: System::Windows::Forms::Button^ button7;
 	private: System::Windows::Forms::Button^ button8;
 	private: System::Windows::Forms::Timer^ moveTimer;
+	private: System::Windows::Forms::Button^ button9;
+	private: System::Windows::Forms::Button^ button10;
+	private: System::Windows::Forms::Button^ button11;
 	private: System::ComponentModel::IContainer^ components;
 
 	private:
@@ -76,6 +79,9 @@ namespace OOPLab6 {
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->moveTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button9 = (gcnew System::Windows::Forms::Button());
+			this->button10 = (gcnew System::Windows::Forms::Button());
+			this->button11 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -184,13 +190,47 @@ namespace OOPLab6 {
 			// 
 			// moveTimer
 			// 
+			this->moveTimer->Interval = 50;
 			this->moveTimer->Tick += gcnew System::EventHandler(this, &MyPaintLab::moveTimer_Tick);
+			// 
+			// button9
+			// 
+			this->button9->Location = System::Drawing::Point(798, 13);
+			this->button9->Name = L"button9";
+			this->button9->Size = System::Drawing::Size(97, 23);
+			this->button9->TabIndex = 10;
+			this->button9->Text = L"Load";
+			this->button9->UseVisualStyleBackColor = true;
+			this->button9->Click += gcnew System::EventHandler(this, &MyPaintLab::button9_Click);
+			// 
+			// button10
+			// 
+			this->button10->Location = System::Drawing::Point(695, 12);
+			this->button10->Name = L"button10";
+			this->button10->Size = System::Drawing::Size(97, 23);
+			this->button10->TabIndex = 11;
+			this->button10->Text = L"Save";
+			this->button10->UseVisualStyleBackColor = true;
+			this->button10->Click += gcnew System::EventHandler(this, &MyPaintLab::button10_Click);
+			// 
+			// button11
+			// 
+			this->button11->Location = System::Drawing::Point(377, 13);
+			this->button11->Name = L"button11";
+			this->button11->Size = System::Drawing::Size(89, 23);
+			this->button11->TabIndex = 12;
+			this->button11->Text = L"Отрезок";
+			this->button11->UseVisualStyleBackColor = true;
+			this->button11->Click += gcnew System::EventHandler(this, &MyPaintLab::button11_Click);
 			// 
 			// MyPaintLab
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(907, 601);
+			this->Controls->Add(this->button11);
+			this->Controls->Add(this->button10);
+			this->Controls->Add(this->button9);
 			this->Controls->Add(this->button8);
 			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
@@ -230,6 +270,8 @@ namespace OOPLab6 {
 	}
 	private: System::Void MyForm_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e){
 		moveTimer->Enabled = false;
+		if(e->KeyCode == Keys::G)
+			pHnd.group();
 		if(e->KeyData == System::Windows::Forms::Keys::ControlKey){
 			pHnd.setMultiSelect(false);
 		}
@@ -265,6 +307,9 @@ namespace OOPLab6 {
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e){
 		pHnd.setType(3);
 	}
+	private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.setType(4);
+	}
 	private: System::Void moveTimer_Tick(System::Object^ sender, System::EventArgs^ e){
 		switch(inputCom){
 		case Keys::W: pHnd.move(0, -3, pictureBox1->Size.Width, pictureBox1->Size.Height); break;
@@ -278,6 +323,13 @@ namespace OOPLab6 {
 		default:
 			break;
 		}
+		pictureBox1->Invalidate();
+	}
+	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.save("savefile.txt");
+	}
+	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e){
+		pHnd.load("savefile.txt");
 		pictureBox1->Invalidate();
 	}
 };

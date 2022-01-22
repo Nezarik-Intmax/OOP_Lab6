@@ -22,16 +22,12 @@ public:
 		setX2(x);
 		setY1(y);
 	}
-	/*CTriangle(int x, int y, int x2, int y2, int x3, int y3, Color color){
-		this->x = x;
-		this->y = y;
-		this->x1 = x2;
-		this->y1 = y2;
-		this->x2 = x3;
-		this->y2 = y3;
-		this->select = true;
-		this->color = color;
-	}*/
+	CTriangle(const CTriangle *a){
+		this->x = a->x;
+		this->y = a->y;
+		this->select = a->select;
+		this->color = a->color;
+	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		array<Point>^ angles = gcnew array<Point>(3);
@@ -116,4 +112,24 @@ public:
 			setY(y+yC);
 		}
 	}
+	virtual void save(std::FILE* stream) override{
+		Color c = this->color;
+		fprintf(stream, "TRIANGLE %d %d %d %d %d %s\n", x, y, x1, y1, x2, c.ToString());
+	};
+	virtual void load(std::FILE* stream) override{
+		char col[80];
+		fscanf(stream, "%d", &this->x);
+		fscanf(stream, "%d", &this->y);
+		fscanf(stream, "%d", &this->x1);
+		fscanf(stream, "%d", &this->y1);
+		fscanf(stream, "%d", &this->x2);
+		fscanf(stream, "%s", &col);
+		fscanf(stream, "%s", &col);
+		int len = strlen(col);
+		for(int i = 0; i < strlen(col) - 2; i++)
+			col[i] = col[i + 1];
+		col[len - 2] = '\0';
+		System::String^ a = gcnew System::String(col);
+		this->color = Color::FromName(a);
+	};
 };

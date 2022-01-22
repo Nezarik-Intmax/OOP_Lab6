@@ -45,6 +45,10 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="BoxFigure.h">
+    <ClInclude Include="CGroup.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CSection.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
