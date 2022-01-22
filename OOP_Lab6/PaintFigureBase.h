@@ -28,13 +28,23 @@ public:
 	virtual int getX(){ return this->x; }
 	virtual int getY(){ return this->y; }
 	virtual bool getSelect(){ return this->select; }
-	virtual void setSize(int xC, int yC){}
-	virtual void resize(int xC, int yC, bool sign){}
+	virtual void setSize(int xC, int yC, int w, int h){}
+	virtual void resize(int xC, int yC, int w, int h, bool sign){}
 	virtual void setColor(Color color){this->color = color;}
+	virtual bool checkBorderX(int xC, int w){
+		if((xC < w) && (xC > 0))
+			return false;
+		return true;
+	}
+	virtual bool checkBorderY(int yC, int h){
+		if((yC < h) && (yC > 0))
+			return false;
+		return true;
+	}
 	virtual void move(int xC, int yC, int w, int h){
-		if ((xC < w)&&(xC>0))
+		if(!checkBorderX(xC, w))
 			this->x += xC;
-		if ((yC < h) && (yC > 0))
+		if(!checkBorderY(yC, h))
 			this->y += yC;
 	}
 	virtual void save(std::FILE* stream){};
