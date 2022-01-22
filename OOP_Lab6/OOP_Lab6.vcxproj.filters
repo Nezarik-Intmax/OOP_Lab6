@@ -1,59 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Исходные файлы">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="MyPaintLab.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyPaintLab.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
+    <ClInclude Include="BoxFigure.h" />
+    <ClInclude Include="CCircle.h" />
+    <ClInclude Include="CEllipse.h" />
+    <ClInclude Include="CGroup.h" />
+    <ClInclude Include="CRectangle.h" />
+    <ClInclude Include="CSection.h" />
+    <ClInclude Include="CTriangle.h" />
+    <ClInclude Include="MyContainer.h" />
+    <ClInclude Include="MyPaintLab.h" />
+    <ClInclude Include="PaintFigureBase.h" />
+    <ClInclude Include="PaintHandler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CEllipse.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CCircle.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CRectangle.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CTriangle.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="MyContainer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="MyPaintLab.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="PaintFigureBase.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="PaintHandler.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CGroup.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CSection.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
+    <Xsd Include="XMLSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyPaintLab.resx">
-      <Filter>Файлы заголовков</Filter>
-    </EmbeddedResource>
+    <EmbeddedResource Include="MyPaintLab.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

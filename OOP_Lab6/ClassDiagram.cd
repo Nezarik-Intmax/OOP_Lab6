@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CBoxFigure" Collapsed="true">
+    <Position X="11.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIFAAAAIAAAAyIQAAAAAAAAwAAQAAEAQAAAAEAAAA=</HashCode>
+      <FileName>BoxFigure.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCircle">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABIAAAAAICAAAmAAAIAAAAAAIAAAAEAEQAAAAAAAAA=</HashCode>
+      <FileName>CCircle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CEllipse">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAIAAAAAAIAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>CEllipse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CGroup">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAICAAAiIAAIAAAAAAIAAAAAAAQAAAhAIAAA=</HashCode>
+      <FileName>CGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRectangle">
+    <Position X="10.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAIAAAQAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CRectangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSection">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAICAAAiAAAIAAAAAA4BAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>CSection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CTriangle">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAICAAQiAAAIAAAAAAYAAAACAAQAQABgAAAA=</HashCode>
+      <FileName>CTriangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaintFigureBase" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAAAAAICAAAiAAAIGAAAAAIAAACDAAQBgBGBIAAA=</HashCode>
+      <FileName>PaintFigureBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

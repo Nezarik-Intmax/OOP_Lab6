@@ -125,6 +125,7 @@
     <ClCompile Include="MyPaintLab.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxFigure.h" />
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CEllipse.h" />
     <ClInclude Include="CGroup.h" />
@@ -140,6 +141,17 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyPaintLab.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="XMLSchema.xsd">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

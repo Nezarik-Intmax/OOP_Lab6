@@ -3,10 +3,9 @@
 
 class CGroup: public PaintFigureBase{
 private:
-	//int width, height;
 	gcroot<MyContainer<PaintFigureBase>^> groupFigures;
 public:
-	CGroup()/*:width(0), height(0)*/{
+	CGroup(){
 		groupFigures = gcnew MyContainer<PaintFigureBase>;
 	}
 	~CGroup(){delete(groupFigures);}
@@ -51,20 +50,16 @@ public:
 			groupFigures->getObject()->setSelect(s);
 		}
 	}
-	virtual void setSize(int xC, int yC) override{
+	virtual void setSize(int xC, int yC, int w, int h) override{
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
-			groupFigures->getObject()->setSize(xC, yC);
+			groupFigures->getObject()->setSize(xC, yC, w, h);
 		}
 	}
-	virtual void resize(int xC, int yC, bool sign) override{
+	virtual void resize(int xC, int yC, int w, int h, bool sign) override{
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
-			groupFigures->getObject()->resize(xC, yC, sign);
+			groupFigures->getObject()->resize(xC, yC, w, h, sign);
 		}
 	}
-	/*void setWidth(int r){ this->width = r; }
-	void setHeight(int r){ this->height = r; }
-	int getWidth(){ return this->width; }
-	int getHeight(){ return this->height; }*/
 	virtual void move(int xC, int yC, int w, int h) override{
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
 			groupFigures->getObject()->move(xC, yC, w, h);

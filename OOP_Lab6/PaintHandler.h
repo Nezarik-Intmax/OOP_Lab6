@@ -79,7 +79,7 @@ public:
 	void resizeAll(int xC, int yC, bool sign){
 		for(figures->first(); !figures->eol(); figures->next())
 			if(figures->getObject()->getSelect())
-				figures->getObject()->resize(xC, yC, sign);
+				figures->getObject()->resize(xC, yC, w, h, sign);
 	}
 	void deleteSelected(){
 		for(figures->first(); !figures->eol();){
@@ -121,10 +121,10 @@ public:
 			observer->Invoke(this, nullptr);
 		}
 	}
-	void proccessDraw(int xC, int yC){
+	void proccessDraw(int xC, int yC, int w, int h){
 		if((!collision) && (paint)){
 			figures->last();
-			figures->getObject()->setSize(xC, yC);
+			figures->getObject()->setSize(xC, yC, w, h);
 		}
 	}
 	void endDraw(){
