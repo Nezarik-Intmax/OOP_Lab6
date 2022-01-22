@@ -21,9 +21,9 @@ public:
 	}
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
-		if(select)
-			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 10), x - (diameter / 2), y - (diameter / 2), diameter, diameter);
 		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);
+		if(select)
+			e->Graphics->DrawEllipse(gcnew Pen(Brushes::Red, 4), x - (diameter / 2) + 2, y - (diameter / 2) + 2, diameter-4, diameter-4);
 	}
 	virtual bool checkCollision(int x, int y) override{
 		int w = (this->x - x) * (this->x - x);
@@ -35,18 +35,23 @@ public:
 			return false;
 	}
 	virtual void setSize(int xC, int yC, int w, int h) override{
-		if(!checkBorderX(xC - x - (diameter / 2), w))
-			if(!checkBorderY(yC - y - (diameter / 2), h)){
-				int width = getX() - xC;
-				int height = getY() - yC;
-				int r = sqrt(width * width + height * height);
-				setDiameter(r);
-			}
+		int width = abs(getX() - xC);
+		int height = abs(getY() - yC);
+		int d = width > height ? width * 2 : height * 2;
+		int tmpD = getDiameter();
+		setDiameter(d);
+		if(!checkBorderX(0, w) && !checkBorderY(0, h)){}
+		else setDiameter(tmpD);
 	}
 	virtual void resize(int xOffset, int yOffset, int w, int h, bool sign) override{
 		int s = sign ? 1 : -1;
-		setSize(getX()+(xOffset*s), getY() + (yOffset * s), w, h);
-		//setDiameter(getDiameter() + (abs(yOffset)*s) + (abs(xOffset)*s));
+		int width = abs(xOffset)*s + diameter / 2;
+		int height = abs(yOffset)*s + diameter / 2;
+		int d = width*s > height*s ? width * 2 : height * 2;
+		int tmpD = getDiameter();
+		setDiameter(d);
+		if(!checkBorderX(0, w) && !checkBorderY(0, h)){}
+		else setDiameter(tmpD);
 	}
 	virtual bool checkBorderX(int xC, int w) override{
 		if((this->x + xC + (diameter / 2) < w) && (this->x + xC - (diameter / 2) > 0))
@@ -58,7 +63,9 @@ public:
 			return false;
 		return true;
 	}
-	void setDiameter(int r){ this->diameter = r;}
+	void setDiameter(int r){
+		this->diameter = r;
+	}
 	int getDiameter(){ return this->diameter;}
 	virtual void move(int xC, int yC, int w, int h) override{
 		if(!checkBorderX(xC, w))

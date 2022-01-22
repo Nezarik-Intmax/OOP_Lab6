@@ -53,4 +53,12 @@
       <Filter>Файлы заголовков</Filter>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="XMLSchema.xsd">
+      <Filter>Файлы заголовков</Filter>
+    </Xsd>
+  </ItemGroup>
 </Project>
