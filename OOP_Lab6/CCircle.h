@@ -26,6 +26,7 @@ public:
 		this->color = a->color;
 		this->diameter = a->diameter;
 	}
+	virtual System::String^ getType() override{ return "CIRCLE"; }
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		e->Graphics->FillEllipse(brsh, x - (diameter / 2), y - (diameter / 2), diameter, diameter);

@@ -30,6 +30,7 @@ public:
 	virtual bool getSelect(){ return this->select; }
 	virtual void setSize(int xC, int yC, int w, int h){}
 	virtual void resize(int xC, int yC, int w, int h, bool sign){}
+	virtual System::String^ getType(){return "BASE";};
 	virtual void setColor(Color color){this->color = color;}
 	virtual bool checkBorderX(int xC, int w){
 		if((xC < w) && (xC > 0))

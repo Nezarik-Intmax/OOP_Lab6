@@ -6,7 +6,6 @@ public:
 	CEllipse(){}
 	CEllipse(int x, int y, int w, int h):CBoxFigure(x, y, w, h){}
 	CEllipse(int x, int y, int w, int h, Color color):CBoxFigure(x, y, w, h, color){}
-
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		e->Graphics->FillEllipse(brsh, x, y, width, height);

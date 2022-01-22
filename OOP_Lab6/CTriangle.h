@@ -28,6 +28,7 @@ public:
 		this->select = a->select;
 		this->color = a->color;
 	}
+	virtual System::String^ getType() override{ return "TRIANGLE"; }
 	virtual void draw(System::Windows::Forms::PaintEventArgs^ e) override{
 		Brush^ brsh = gcnew System::Drawing::SolidBrush(color);
 		array<Point>^ angles = gcnew array<Point>(3);
