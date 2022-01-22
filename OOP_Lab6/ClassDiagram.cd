@@ -8,14 +8,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CRectangle" Collapsed="true">
-    <Position X="12" Y="3.5" Width="1.5" />
+    <Position X="12.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAAAQAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CRectangle.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CBoxFigure" Collapsed="true">
-    <Position X="9" Y="2" Width="1.5" />
+    <Position X="10.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAIFAAAAAAAAAyIQAAAAAAAAwAAQAAEAQAAAAEAAAA=</HashCode>
       <FileName>BoxFigure.h</FileName>
@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CEllipse" Collapsed="true">
-    <Position X="10" Y="4.75" Width="1.5" />
+    <Position X="9.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAIAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>CEllipse.h</FileName>
