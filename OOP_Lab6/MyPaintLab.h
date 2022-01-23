@@ -107,7 +107,7 @@ namespace OOPLab6 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"Êðóã";
+			this->button1->Text = L"Круг";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyPaintLab::button1_Click);
 			// 
@@ -126,7 +126,7 @@ namespace OOPLab6 {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(105, 23);
 			this->button2->TabIndex = 3;
-			this->button2->Text = L"Ïðÿìîóãîëüíèê";
+			this->button2->Text = L"Прямоугольник";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyPaintLab::button2_Click);
 			// 
@@ -176,7 +176,7 @@ namespace OOPLab6 {
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(72, 23);
 			this->button7->TabIndex = 8;
-			this->button7->Text = L"Ýëëèïñ";
+			this->button7->Text = L"Эллипс";
 			this->button7->UseVisualStyleBackColor = true;
 			this->button7->Click += gcnew System::EventHandler(this, &MyPaintLab::button7_Click);
 			// 
@@ -186,7 +186,7 @@ namespace OOPLab6 {
 			this->button8->Name = L"button8";
 			this->button8->Size = System::Drawing::Size(89, 23);
 			this->button8->TabIndex = 9;
-			this->button8->Text = L"Òðåóãîëüíèê";
+			this->button8->Text = L"Треугольник";
 			this->button8->UseVisualStyleBackColor = true;
 			this->button8->Click += gcnew System::EventHandler(this, &MyPaintLab::button8_Click);
 			// 
@@ -221,7 +221,7 @@ namespace OOPLab6 {
 			this->button11->Name = L"button11";
 			this->button11->Size = System::Drawing::Size(89, 23);
 			this->button11->TabIndex = 12;
-			this->button11->Text = L"Îòðåçîê";
+			this->button11->Text = L"Отрезок";
 			this->button11->UseVisualStyleBackColor = true;
 			this->button11->Click += gcnew System::EventHandler(this, &MyPaintLab::button11_Click);
 			// 

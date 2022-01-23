@@ -76,7 +76,7 @@ public:
 		for(figures->first(); !figures->eol(); figures->next())
 			figures->getObject()->draw(e);
 	}
-	void resizeAll(int xC, int yC, bool sign){
+	void resizeAll(int xC, int yC, int w, int h, bool sign){
 		for(figures->first(); !figures->eol(); figures->next())
 			if(figures->getObject()->getSelect())
 				figures->getObject()->resize(xC, yC, w, h, sign);
@@ -146,6 +146,16 @@ public:
 			fclose(stream);
 		}
 	}
+	PaintFigureBase* createFigure(char *s){
+		PaintFigureBase* tmp;
+		if(!strcmp(s, "CIRCLE")) tmp = new CCircle();
+		else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
+		else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
+		else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
+		else if(!strcmp(s, "SECTION")) tmp = new CSection();
+		else if(!strcmp(s, "GROUP")) tmp = new CGroup();
+		return tmp;	
+	}
 	void load(char* filename){
 		std::FILE* stream;
 		if((stream = fopen(filename, "r")) != nullptr){
@@ -155,12 +165,7 @@ public:
 			PaintFigureBase* tmp;
 			for(int i = 0; i < count; i++){
 				fscanf(stream, "%s", s);
-				if(!strcmp(s, "CIRCLE")) tmp = new CCircle();
-				else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
-				else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
-				else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
-				else if(!strcmp(s, "SECTION")) tmp = new CSection();
-				else if(!strcmp(s, "GROUP")) tmp = new CGroup();
+				tmp = createFigure(s);
 				tmp->load(stream);
 				figures->add(tmp);
 			}
