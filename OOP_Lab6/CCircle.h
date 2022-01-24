@@ -79,6 +79,7 @@ public:
 		if(!checkBorderY(yC, h))
 			this->y += yC;
 	}
+	virtual std::string getType() override{ return "CIRCLE"; }
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
 		fprintf(stream, "CIRCLE %d %d %d %s\n", x, y, diameter, c.ToString());

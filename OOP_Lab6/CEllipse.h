@@ -3,7 +3,6 @@
 #include <math.h>
 class CEllipse: public CBoxFigure{
 public:
-
 	CEllipse(){}
 	CEllipse(int x, int y, int w, int h):CBoxFigure(x, y, w, h){}
 	CEllipse(int x, int y, int w, int h, Color color):CBoxFigure(x, y, w, h, color){}
@@ -26,7 +25,8 @@ public:
 				return true;
 		return false;
 	}
-  
+
+	virtual std::string getType() override{ return "ELLIPSE"; }
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
 		fprintf(stream, "ELLIPSE %d %d %d %d %d %d %d %d %s\n", x, y, x2, y2, xOrigin, yOrigin, width, height, c.ToString());

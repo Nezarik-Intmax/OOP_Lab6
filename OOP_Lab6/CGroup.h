@@ -1,5 +1,6 @@
 #pragma once
 #include "PaintFigureBase.h"
+#include "AbstractFactory.h"
 
 class CGroup: public PaintFigureBase{
 private:
@@ -36,38 +37,58 @@ public:
 			groupFigures->getObject()->setSelect(s);
 		}
 	}
-	virtual void setSize(int xC, int yC, int w, int h) override{
+	virtual bool checkBorderX(int xC, int w) override{
+		bool a = false;
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
-			groupFigures->getObject()->setSize(xC, yC, w, h);
+			if(groupFigures->getObject()->checkBorderX(xC, w))
+				a = true;
+		}
+		return a;
+	}
+	virtual bool checkBorderY(int yC, int h) override{
+		bool a = false;
+		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
+			if(groupFigures->getObject()->checkBorderY(yC, h))
+				a = true;
+		}
+		return a;
+	}
+	virtual void setSize(int xC, int yC, int w, int h) override{
+		if(!checkBorderX(xC, w) && !checkBorderY(yC, h)){
+			for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
+				groupFigures->getObject()->setSize(xC, yC, w, h);
+			}
 		}
 	}
 	virtual void resize(int xC, int yC, int w, int h, bool sign) override{
-		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
-			groupFigures->getObject()->resize(xC, yC, w, h, sign);
+		if(!checkBorderX(xC, w) && !checkBorderY(yC, h)){
+			for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
+				groupFigures->getObject()->resize(xC, yC, w, h, sign);
+			}
 		}
 	}
 	virtual void move(int xC, int yC, int w, int h) override{
-		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
-			groupFigures->getObject()->move(xC, yC, w, h);
+		if(!checkBorderX(xC, w) && !checkBorderY(yC, h)){
+			for(groupFigures->first(); !groupFigures->eol(); groupFigures->next()){
+				groupFigures->getObject()->move(xC, yC, w, h);
+			}
 		}
 	}
+	virtual std::string getType() override{ return "GROUP"; }
 	virtual void save(std::FILE* stream) override{
 		fprintf(stream, "GROUP %d\n", groupFigures->length());
 		for(groupFigures->first(); !groupFigures->eol(); groupFigures->next())
 			groupFigures->getObject()->save(stream);
 	};
-	virtual void load(std::FILE* stream) override{
+	virtual void load(std::FILE* stream) override{};
+	virtual void loadFigures(std::FILE* stream, AbstractFactory* f){
 		int count = 0;
 		fscanf(stream, "%d\n", &count);
 		char s[80];
 		PaintFigureBase* tmp;
 		for(int i = 0; i < count; i++){
 			fscanf(stream, "%s", s);
-			if(!strcmp(s, "CIRCLE")) tmp = new CCircle();
-			else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
-			else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
-			else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
-			else if(!strcmp(s, "GROUP")) tmp = new CGroup();
+			tmp = f->createFigure(s);
 			tmp->load(stream);
 			groupFigures->add(tmp);
 		}

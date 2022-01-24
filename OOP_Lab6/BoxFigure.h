@@ -87,4 +87,5 @@ public:
 			this->yOrigin += yC;
 		}
 	}
+	virtual std::string getType() override{ return "BOX"; }
 };

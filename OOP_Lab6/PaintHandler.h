@@ -6,21 +6,32 @@
 #include "CTriangle.h"
 #include "CSection.h"
 #include "CGroup.h"
+#include "AbstractFactory.h"
+#include "Factory.h"
 #include <iostream>
 #include <string.h>
-enum figType{CIRCLE, ELLIPSE, RECTANGLE, TRIANGLE, SECTION};
 ref class PaintHandler{
 private:
 	MyContainer<PaintFigureBase> figures;
+	AbstractFactory* factory;
 	bool multiSelect = false;
 	bool collision = false;
 	bool paint = false;
-	int type;
+	System::String^ type;
 	System::Drawing::Color color;
 public:
-	PaintHandler():type(0),color(System::Drawing::Color::Black){}
-	~PaintHandler(){}
-	void setType(int i){ type  = i;}
+	PaintHandler():type(""),color(System::Drawing::Color::Black){
+		factory = new Factory();
+	}
+	~PaintHandler(){
+		if(factory != nullptr){
+			delete(factory);
+			factory = nullptr;
+		}
+	}
+	void setType(System::String^ i){
+		type = i;
+	}
 	void setColor(System::Drawing::Color i){
 		color = i;
 		for(figures.first(); !figures.eol(); figures.next()){
@@ -85,25 +96,7 @@ public:
 		}
 	}
 	void startDraw(int xC, int yC){
-		switch(this->type){
-		case CIRCLE:
-			figures.add(new CCircle(xC, yC, 100, color));
-			break;
-		case ELLIPSE:
-			figures.add(new CEllipse(xC, yC, 10, 10, color));
-			break;
-		case RECTANGLE:
-			figures.add(new CRectangle(xC, yC, 10, 10, color));
-			break;
-		case TRIANGLE:
-			figures.add(new CTriangle(xC, yC, color));
-			break;
-		case SECTION:
-			figures.add(new CSection(xC, yC, 10, 10, color));
-			break;
-		default:
-			figures.add(new CCircle(xC, yC, 100, color));
-		}
+		figures.add(factory->createFigure(this->type, xC, yC, color));
 		paint = true;
 	}
 	void proccessDraw(int xC, int yC, int w, int h){
@@ -140,13 +133,11 @@ public:
 			PaintFigureBase* tmp;
 			for(int i = 0; i < count; i++){
 				fscanf(stream, "%s", s);
-				if(!strcmp(s, "CIRCLE")) tmp = new CCircle();
-				else if(!strcmp(s, "ELLIPSE")) tmp = new CEllipse();
-				else if(!strcmp(s, "RECTANGLE")) tmp = new CRectangle();
-				else if(!strcmp(s, "TRIANGLE")) tmp = new CTriangle();
-				else if(!strcmp(s, "SECTION")) tmp = new CSection();
-				else if(!strcmp(s, "GROUP")) tmp = new CGroup();
-				tmp->load(stream);
+				tmp = factory->createFigure(s);
+				if(tmp->getType() == "GROUP")
+					dynamic_cast<CGroup*>(tmp)->loadFigures(stream, factory);
+				else
+					tmp->load(stream);
 				figures.add(tmp);
 			}
 			fclose(stream);

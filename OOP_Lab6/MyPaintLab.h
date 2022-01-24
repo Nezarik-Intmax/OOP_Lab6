@@ -296,19 +296,19 @@ namespace OOPLab6 {
 		pHnd.endDraw();
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e){
-		pHnd.setType(0);
+		pHnd.setType("CIRCLE");
 	}
 	private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e){
-		pHnd.setType(1);
+		pHnd.setType("ELLIPSE");
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e){
-		pHnd.setType(2);
+		pHnd.setType("RECTANGLE");
 	}
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e){
-		pHnd.setType(3);
+		pHnd.setType("TRIANGLE");
 	}
 	private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e){
-		pHnd.setType(4);
+		pHnd.setType("SECTION");
 	}
 	private: System::Void moveTimer_Tick(System::Object^ sender, System::EventArgs^ e){
 		switch(inputCom){

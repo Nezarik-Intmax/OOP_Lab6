@@ -24,6 +24,7 @@ public:
 	};
 	virtual void setX(int x){ this->x = x; }
 	virtual void setY(int y){ this->y = y; }
+	virtual std::string getType(){ return "BASE"; }
 	virtual void setSelect(bool s = true){ this->select = s; }
 	virtual int getX(){ return this->x; }
 	virtual int getY(){ return this->y; }
@@ -47,6 +48,6 @@ public:
 		if(!checkBorderY(yC, h))
 			this->y += yC;
 	}
-	virtual void save(std::FILE* stream){};
-	virtual void load(std::FILE* stream){};
+	virtual void save(std::FILE* stream){}
+	virtual void load(std::FILE* stream){}
 };

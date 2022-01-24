@@ -112,6 +112,7 @@ public:
 			setY(y+yC);
 		}
 	}
+	virtual std::string getType() override{ return "TRIANGLE"; }
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
 		fprintf(stream, "TRIANGLE %d %d %d %d %d %s\n", x, y, x1, y1, x2, c.ToString());

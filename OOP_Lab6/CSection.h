@@ -79,6 +79,7 @@ public:
 			this->y2 += yC;
 		}
 	}
+	virtual std::string getType() override{ return "SECTION"; }
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
 		fprintf(stream, "SECTION %d %d %d %d %s\n", x, y, x2, y2, c.ToString());

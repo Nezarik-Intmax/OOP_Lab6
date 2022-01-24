@@ -125,6 +125,7 @@
     <ClCompile Include="MyPaintLab.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="BoxFigure.h" />
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CEllipse.h" />
@@ -132,6 +133,7 @@
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CSection.h" />
     <ClInclude Include="CTriangle.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="MyContainer.h" />
     <ClInclude Include="MyPaintLab.h">
       <FileType>CppForm</FileType>
