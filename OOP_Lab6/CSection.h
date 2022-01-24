@@ -44,7 +44,7 @@ public:
 		}
 		return false;
 	}
-	virtual void setSize(int xC, int yC) override{
+	virtual void setSize(int xC, int yC, int w, int h) override{
 		x2 = xC;
 		y2 = yC;
 	}
