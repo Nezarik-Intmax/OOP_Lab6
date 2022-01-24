@@ -24,7 +24,8 @@ public:
 				return true;
 		return false;
 	}
-  
+
+	virtual System::String^ getType() override{ return "TRIANGLE"; };
 	virtual void save(std::FILE* stream) override{
 		Color c = this->color;
 		fprintf(stream, "ELLIPSE %d %d %d %d %d %d %d %d %s\n", x, y, x2, y2, xOrigin, yOrigin, width, height, c.ToString());
