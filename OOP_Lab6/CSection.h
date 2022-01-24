@@ -44,27 +44,39 @@ public:
 		}
 		return false;
 	}
-	virtual void setSize(int xC, int yC, int w, int h) override{
-		x2 = xC;
-		y2 = yC;
+	virtual bool checkBorderX(int xC, int w) override{
+		if((this->x2 + xC <= w) && (this->x2 + xC >= 0))
+			if((this->x + xC <= w) && (this->x + xC >= 0))
+				return false;
+		return true;
 	}
-	virtual void resize(int xC, int yC, bool sign) override{
+	virtual bool checkBorderY(int yC, int h) override{
+		if((this->y2 + yC <= h) && (this->y2 + yC >= 0))
+			if((this->y + yC <= h) && (this->y + yC >= 0))
+				return false;
+		return true;
+	}
+	virtual void setSize(int xC, int yC, int w, int h) override{
+		if(!checkBorderX(xC - x2, w))
+			x2 = xC;
+		if(!checkBorderY(yC - y2, h))
+			y2 = yC;
+	}
+	virtual void resize(int xC, int yC, int w, int h, bool sign) override{
 		int s = sign ? 1 : -1;
-		x2 += xC * s;
-		y2 += yC * s;
+		if(!checkBorderX(xC * s, w))
+			x2 += xC * s;
+		if(!checkBorderY(yC * s, h))
+			y2 += yC * s;
 	}
 	virtual void move(int xC, int yC, int w, int h) override{
-		if((this->x2 + xC <= w) && (this->x2 + xC >= 0)){
-			if((this->x + xC <= w) && (this->x + xC >= 0)){
-				this->x += xC;
-				this->x2 += xC;
-			}
+		if(!checkBorderX(xC, w)){
+			this->x += xC;
+			this->x2 += xC;
 		}
-		if((this->y2 + yC <= h) && (this->y2 + yC >= 0)){
-			if((this->y + yC <= h) && (this->y + yC >= 0)){
-				this->y += yC;
-				this->y2 += yC;
-			}
+		if(!checkBorderY(yC, h)){
+			this->y += yC;
+			this->y2 += yC;
 		}
 	}
 	virtual void save(std::FILE* stream) override{
