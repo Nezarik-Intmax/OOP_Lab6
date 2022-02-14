@@ -89,7 +89,10 @@ public:
 		for(int i = 0; i < count; i++){
 			fscanf(stream, "%s", s);
 			tmp = f->createFigure(s);
-			tmp->load(stream);
+			if(tmp->getType() == "GROUP")
+				dynamic_cast<CGroup*>(tmp)->loadFigures(stream, f);
+			else
+				tmp->load(stream);
 			groupFigures->add(tmp);
 		}
 	};
